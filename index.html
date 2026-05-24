@@ -124,6 +124,62 @@
   .toolbar input{padding:4px 7px;border:1px solid var(--border);border-radius:5px;width:85px;font-variant-numeric:tabular-nums}
   .toolbar label{display:flex;gap:5px;align-items:center;background:var(--card);padding:4px 8px;border:1px solid var(--border);border-radius:5px}
 
+  /* ===== PANEL PARÁMETROS COLAPSABLE ===== */
+  .params-panel{background:linear-gradient(135deg,#fff,#f8fafd);border:2px solid var(--mv-blue);border-radius:12px;margin-bottom:16px;overflow:hidden;box-shadow:0 2px 8px rgba(1,157,244,.1)}
+  .params-toggle{
+    display:flex;align-items:center;gap:10px;width:100%;padding:12px 16px;background:transparent;border:none;cursor:pointer;
+    font-size:.92em;font-weight:600;color:var(--mv-dark);text-align:left;transition:background .15s ease
+  }
+  .params-toggle:hover{background:rgba(1,157,244,.08)}
+  .params-toggle-icon{font-size:1.3em}
+  .params-toggle-label{font-weight:700;color:var(--mv-blue)}
+  .params-summary{flex:1;color:var(--gray);font-weight:500;font-size:.88em;font-variant-numeric:tabular-nums}
+  .params-toggle-arrow{font-size:.8em;color:var(--mv-blue);transition:transform .25s ease}
+  .params-panel.open .params-toggle-arrow{transform:rotate(180deg)}
+  .params-body{display:none;padding:14px 16px 16px;border-top:1px solid var(--border);background:#fafcfe}
+  .params-panel.open .params-body{display:block;animation:slideDown .25s ease}
+  @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  .params-hint{font-size:.85em;color:var(--gray);margin:0 0 12px;padding:8px 12px;background:var(--mv-light);border-radius:6px;border-left:3px solid var(--mv-blue)}
+  .params-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:12px}
+  .param-item{display:flex;flex-direction:column;gap:3px;background:#fff;padding:8px 10px;border:1px solid var(--border);border-radius:8px;transition:all .2s ease}
+  .param-item:hover{border-color:var(--mv-blue);box-shadow:0 2px 6px rgba(1,157,244,.1)}
+  .param-item.param-highlight{border-color:var(--green);background:linear-gradient(135deg,#e6f9f0,#fff)}
+  .param-label{font-size:.78em;font-weight:600;color:var(--mv-dark);text-transform:uppercase;letter-spacing:.3px}
+  .param-item input{padding:6px 8px;border:1px solid var(--border);border-radius:5px;font-variant-numeric:tabular-nums;font-size:.95em;font-weight:600;color:var(--mv-blue);width:100%;box-sizing:border-box}
+  .param-item input:focus{outline:none;border-color:var(--mv-blue);box-shadow:0 0 0 3px rgba(1,157,244,.15)}
+  .param-hint{font-size:.7em;color:var(--gray);font-style:italic}
+  .params-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .params-status{font-size:.82em;color:var(--green);font-weight:600}
+  .params-status.changed{color:var(--amber)}
+
+  /* ===== FLASH ANIMATION (KPI actualizado) ===== */
+  @keyframes flash-update{
+    0%{background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.04)}
+    30%{background:#e6f9f0;box-shadow:0 0 0 4px rgba(26,162,96,.3)}
+    100%{background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  }
+  .flash-now{animation:flash-update 1.2s ease}
+  .flash-now::after{content:'✨';position:absolute;top:6px;right:8px;font-size:1em;animation:fade-out 1.5s ease forwards}
+  @keyframes fade-out{0%{opacity:1}70%{opacity:1}100%{opacity:0}}
+  .card.kpi{position:relative}
+
+  /* ===== Responsive del panel ===== */
+  @media (max-width:768px){
+    .params-toggle{padding:14px 14px;font-size:1em;flex-wrap:wrap}
+    .params-summary{width:100%;font-size:.78em;margin-top:4px;flex:initial;order:3}
+    .params-toggle-label{flex:1}
+    .params-grid{grid-template-columns:1fr 1fr;gap:8px}
+    .param-item{padding:7px 8px}
+    .param-label{font-size:.72em}
+    .params-hint{font-size:.78em}
+    .params-actions{flex-direction:column;align-items:stretch}
+    .params-actions .btn{width:100%}
+    .params-status{text-align:center}
+  }
+  @media (max-width:480px){
+    .params-grid{grid-template-columns:1fr}
+  }
+
   /* ===== HAMBURGER MENU MOBILE ===== */
   .hamburger{display:none;position:fixed;top:12px;left:12px;z-index:1000;background:var(--mv-blue);color:#fff;border:none;width:44px;height:44px;border-radius:8px;font-size:1.4em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
   .hamburger:active{background:#0184cf}
@@ -227,16 +283,31 @@
     </div>
   </aside>
   <main>
-    <div class="toolbar">
-      <label>UVT 2026 <input id="uvt" type="number" value="49799" min="40000" max="60000" /></label>
-      <label>Salario <input id="salario" type="number" value="13514970" /></label>
-      <label>Bono <input id="bono" type="number" value="159026147" /></label>
-      <label>Meses 2026 <input id="meses" type="number" value="7" min="1" max="12" /></label>
-      <label>Gasto familiar/mes neto <input id="gastoMes" type="number" value="9240000" /></label>
-      <label>Cuota hipoteca/mes <input id="cuotaHip" type="number" value="3497245" /></label>
-      <label>Viaje USA (austero 7 pax) <input id="viajeUSA" type="number" value="8500000" /></label>
-      <label>💑 Aporte esposa/mes <input id="aporteEsposa" type="number" value="2000000" /></label>
-      <button class="btn" onclick="recalc()">Recalcular</button>
+    <div class="params-panel" id="paramsPanel">
+      <button class="params-toggle" onclick="toggleParams()" id="paramsToggle">
+        <span class="params-toggle-icon">⚙️</span>
+        <span class="params-toggle-label">Parámetros del plan</span>
+        <span class="params-summary" id="paramsSummary">Gasto $9.2M · Bono $159M · Esposa $2M · USA $8.5M</span>
+        <span class="params-toggle-arrow">▼</span>
+      </button>
+      <div class="params-body" id="paramsBody">
+        <p class="params-hint">💡 <strong>Cualquier cambio aquí recalcula TODO el plan en vivo:</strong> KPIs, simulador fiscal, distribución, runway, salarios necesarios, eficiencias post-retiro. Mira el ✨ que aparece junto a cada KPI actualizado.</p>
+        <div class="params-grid">
+          <label class="param-item"><span class="param-label">UVT 2026</span><input id="uvt" type="number" value="49799" min="40000" max="60000" /><span class="param-hint">Tope tributario</span></label>
+          <label class="param-item"><span class="param-label">💼 Salario mensual</span><input id="salario" type="number" value="13514970" /><span class="param-hint">Movistar último</span></label>
+          <label class="param-item"><span class="param-label">💰 Bonificación</span><input id="bono" type="number" value="159026147" /><span class="param-hint">Retiro pagado</span></label>
+          <label class="param-item"><span class="param-label">📅 Meses 2026</span><input id="meses" type="number" value="7" min="1" max="12" /><span class="param-hint">ene-jul</span></label>
+          <label class="param-item"><span class="param-label">🏠 Gasto familiar/mes</span><input id="gastoMes" type="number" value="9240000" /><span class="param-hint">Neto Hugo</span></label>
+          <label class="param-item"><span class="param-label">🏦 Cuota hipoteca</span><input id="cuotaHip" type="number" value="3497245" /><span class="param-hint">BBVA mensual</span></label>
+          <label class="param-item"><span class="param-label">✈️ Viaje USA pendiente</span><input id="viajeUSA" type="number" value="8500000" /><span class="param-hint">Auto + variables</span></label>
+          <label class="param-item param-highlight"><span class="param-label">💑 Aporte esposa/mes</span><input id="aporteEsposa" type="number" value="2000000" /><span class="param-hint">Ayuda familiar</span></label>
+        </div>
+        <div class="params-actions">
+          <button class="btn" onclick="recalc(); flashAll();">🔄 Recalcular plan</button>
+          <button class="btn ghost" onclick="resetParams()">↺ Restaurar valores</button>
+          <span class="params-status" id="paramsStatus">✓ Todos los datos aplicados</span>
+        </div>
+      </div>
     </div>
 
     <!-- SLIDE 1: RESUMEN -->
@@ -3046,6 +3117,62 @@ function toggleNav(){
   nav.classList.toggle('open');
   overlay.classList.toggle('open');
 }
+
+// ===== PANEL DE PARÁMETROS =====
+function toggleParams(){
+  document.getElementById('paramsPanel').classList.toggle('open');
+}
+function updateParamsSummary(){
+  const fmt = n => '$' + Math.round(n/1e6) + 'M';
+  const summary = 'Gasto ' + fmt(state.gastoMes) + ' · Bono ' + fmt(state.bono) + ' · Esposa ' + fmt(state.aporteEsposa) + ' · USA ' + fmt(state.viajeUSA);
+  const el = document.getElementById('paramsSummary');
+  if (el) el.textContent = summary;
+}
+const PARAMS_DEFAULTS = {
+  uvt: 49799, salario: 13514970, bono: 159026147, meses: 7,
+  gastoMes: 9240000, cuotaHip: 3497245, viajeUSA: 8500000, aporteEsposa: 2000000
+};
+function resetParams(){
+  for (const k in PARAMS_DEFAULTS){
+    const el = document.getElementById(k);
+    if (el) el.value = PARAMS_DEFAULTS[k];
+  }
+  recalc();
+  flashAll();
+  showParamsStatus('✓ Valores restaurados al default', 'green');
+}
+function showParamsStatus(text, color){
+  const el = document.getElementById('paramsStatus');
+  if (el){
+    el.textContent = text;
+    el.style.color = color === 'amber' ? 'var(--amber)' : 'var(--green)';
+    el.classList.add('changed');
+    clearTimeout(window._statusTimer);
+    window._statusTimer = setTimeout(() => {
+      el.textContent = '✓ Todos los datos aplicados';
+      el.style.color = 'var(--green)';
+      el.classList.remove('changed');
+    }, 2500);
+  }
+}
+function flashAll(){
+  // Animar todos los KPIs visibles del slide actual
+  const activeSlide = document.querySelector('.slide.active');
+  if (!activeSlide) return;
+  activeSlide.querySelectorAll('.card.kpi').forEach(card => {
+    card.classList.remove('flash-now');
+    void card.offsetWidth; // trigger reflow
+    card.classList.add('flash-now');
+    setTimeout(() => card.classList.remove('flash-now'), 1300);
+  });
+}
+function onParamChange(){
+  recalc();
+  updateParamsSummary();
+  showParamsStatus('🔄 Recalculando...', 'amber');
+  flashAll();
+  setTimeout(() => showParamsStatus('✓ Plan actualizado en vivo', 'green'), 400);
+}
 function goto(i){
   state.current = Math.max(0, Math.min(17, i));
   document.querySelectorAll('.slide').forEach((el,idx)=>el.classList.toggle('active', idx===state.current));
@@ -3568,8 +3695,10 @@ function recalc(){
 }
 
 ['uvt','salario','bono','meses','gastoMes','cuotaHip','viajeUSA','aporteEsposa'].forEach(id=>{
-  document.getElementById(id).addEventListener('input', recalc);
+  document.getElementById(id).addEventListener('input', onParamChange);
 });
+// Inicializar summary
+setTimeout(() => updateParamsSummary(), 100);
 
 // Init: soportar hash de URL (#6 abre slide 6) para deep-linking y screenshots
 const initSlide = parseInt((window.location.hash || '#0').slice(1)) || 0;
