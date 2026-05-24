@@ -3713,7 +3713,8 @@ function recalc(){
   document.getElementById('kpiCompr').textContent = fmt(compr60);
 
   // Viaje USA total
-  document.getElementById('viajeTotal').textContent = fmt(state.viajeUSA);
+  const elViajeTotal = document.getElementById('viajeTotal');
+  if (elViajeTotal) elViajeTotal.textContent = fmt(state.viajeUSA);
 
   document.getElementById('liqVac').textContent = fmt(liq.vac);
   document.getElementById('liqCes25').textContent = fmt(liq.ces25);
