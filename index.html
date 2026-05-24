@@ -123,9 +123,79 @@
   .toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;font-size:.82em}
   .toolbar input{padding:4px 7px;border:1px solid var(--border);border-radius:5px;width:85px;font-variant-numeric:tabular-nums}
   .toolbar label{display:flex;gap:5px;align-items:center;background:var(--card);padding:4px 8px;border:1px solid var(--border);border-radius:5px}
+
+  /* ===== HAMBURGER MENU MOBILE ===== */
+  .hamburger{display:none;position:fixed;top:12px;left:12px;z-index:1000;background:var(--mv-blue);color:#fff;border:none;width:44px;height:44px;border-radius:8px;font-size:1.4em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+  .hamburger:active{background:#0184cf}
+  .nav-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:998;opacity:0;transition:opacity .25s ease}
+  .nav-overlay.open{display:block;opacity:1}
+
+  /* ===== TABLET (≤1024px) ===== */
+  @media (max-width:1024px){
+    aside.nav{width:220px}
+    aside.nav li{font-size:.82em;padding:8px 14px}
+    main{padding:24px 24px 60px}
+    h1{font-size:1.45em}
+    .card{padding:14px}
+    .grid.cols-4{grid-template-columns:repeat(2,1fr)}
+    .grid.cols-3{grid-template-columns:repeat(2,1fr)}
+  }
+
+  /* ===== MOBILE (≤768px) ===== */
+  @media (max-width:768px){
+    .hamburger{display:flex;align-items:center;justify-content:center}
+    .layout{flex-direction:column}
+    aside.nav{
+      position:fixed;top:0;left:-280px;height:100vh;width:260px;z-index:999;
+      transition:left .25s ease;box-shadow:2px 0 12px rgba(0,0,0,.2)
+    }
+    aside.nav.open{left:0}
+    main{padding:64px 14px 40px;max-width:100%;width:100%}
+    h1{font-size:1.25em;line-height:1.25}
+    h2{font-size:1.1em}
+    h3{font-size:.95em}
+    .slide-header{flex-direction:column;align-items:stretch;gap:8px}
+    .slide-header .pager{justify-content:space-between}
+    .btn{padding:8px 12px;font-size:.85em}
+    .grid.cols-2,.grid.cols-3,.grid.cols-4{grid-template-columns:1fr}
+    .grid{gap:10px}
+    .card{padding:12px}
+    .card.kpi .value{font-size:1.4em}
+    .card.kpi .label{font-size:.7em}
+    table{font-size:.78em;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+    table thead{position:sticky;top:0}
+    th,td{padding:6px 8px;min-width:80px}
+    .toolbar{flex-direction:column;align-items:stretch;font-size:.85em}
+    .toolbar label{width:100%}
+    .toolbar input{width:100%;flex:1}
+    .timeline{flex-direction:column;align-items:stretch;padding:0}
+    .timeline::before{display:none}
+    .tl-step{text-align:left;padding:10px 12px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:6px;min-width:auto;display:flex;align-items:center;gap:12px}
+    .tl-step .dot{margin:0;flex-shrink:0}
+    .sim-row{grid-template-columns:1fr;gap:4px}
+    .sim-row .v{text-align:left}
+    .chart-wrap{height:280px}
+    .chart-wrap.tall{height:300px}
+    .alert{padding:10px 12px;font-size:.85em}
+    .checklist input[type=checkbox]{transform:scale(1.4)}
+  }
+
+  /* ===== MOBILE PEQUEÑO (≤480px) ===== */
+  @media (max-width:480px){
+    main{padding:60px 10px 30px}
+    h1{font-size:1.1em}
+    .card{padding:10px}
+    .card.kpi .value{font-size:1.2em}
+    table{font-size:.72em}
+    th,td{padding:5px 6px}
+    aside.nav{width:240px}
+    aside.nav li{font-size:.88em;padding:11px 14px}
+  }
 </style>
 </head>
 <body>
+<button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menú">☰</button>
+<div class="nav-overlay" id="navOverlay" onclick="toggleNav()"></div>
 <div class="layout">
   <aside class="nav" id="nav">
     <div class="brand">
@@ -2970,11 +3040,22 @@ const fmtShort = n => {
   return '$' + (n).toLocaleString('es-CO');
 };
 
+function toggleNav(){
+  const nav = document.getElementById('nav');
+  const overlay = document.getElementById('navOverlay');
+  nav.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
 function goto(i){
   state.current = Math.max(0, Math.min(17, i));
   document.querySelectorAll('.slide').forEach((el,idx)=>el.classList.toggle('active', idx===state.current));
   document.querySelectorAll('aside.nav li').forEach((el,idx)=>el.classList.toggle('active', idx===state.current));
   window.scrollTo({top:0, behavior:'smooth'});
+  // En mobile, cerrar el menú al navegar
+  if (window.innerWidth <= 768) {
+    document.getElementById('nav').classList.remove('open');
+    document.getElementById('navOverlay').classList.remove('open');
+  }
   // Fix robusto: Chart.js no puede medir canvas display:none.
   // Double RAF + delay para garantizar que layout y CSS estén aplicados antes de crear charts.
   requestAnimationFrame(()=> requestAnimationFrame(()=> {
