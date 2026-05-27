@@ -29,6 +29,22 @@ Tablero ejecutivo HTML interactivo para planeación financiera personal post-ret
 
 Documento orientativo personal. NO es asesoría tributaria/financiera vinculante. Validar con contador y asesor financiero antes de tomar decisiones.
 
+## 🔒 Protección con contraseña (StatiCrypt)
+
+El `index.html` publicado está **cifrado con AES-256** vía [StatiCrypt](https://github.com/robinmoisson/staticrypt). El visitante debe introducir la contraseña para ver el contenido. La fuente sin cifrar vive en `src/index.html` (no se sirve por Pages).
+
+### Regenerar tras editar `src/index.html`
+
+```bash
+bash build.sh                              # pide pass interactiva
+STATICRYPT_PASS='tu-pass' bash build.sh    # no interactivo
+git add index.html src/index.html
+git commit -m "update: <cambios>"
+git push
+```
+
+> Si pierdes la contraseña, no hay recuperación: regenera con una nueva. El archivo `.staticrypt.json` (estado local) está gitignored.
+
 ## 📅 Última actualización
 
-2026-05-24
+2026-05-25
