@@ -2291,6 +2291,177 @@
           <p class="muted">Asume permanencia de 10 años para mantener exención.</p>
         </div>
       </div>
+
+      <div class="card" style="margin-top:18px;background:#e8f1ff;border-left:4px solid #019DF4">
+        <h3>🏛️ Decisión clave: ¿Dónde poner el aporte? PV institucional vs FIC vs CDT vs Cuenta remunerada</h3>
+        <p class="muted">Mismo monto, distintos vehículos, distintos retornos NETOS. Las gráficas y la matriz usan el valor del slider <strong>"Aporte a Pensión Voluntaria"</strong> ($<span id="vehMontoLbl">—</span>) para comparar manzanas con manzanas. Si lo subes/bajas, todo se recalcula.</p>
+      </div>
+
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card">
+          <h3>📊 Beneficio AÑO 1 por vehículo (rendimiento + ahorro fiscal)</h3>
+          <div class="chart-wrap tall"><canvas id="chartVehAno1"></canvas></div>
+          <p class="muted">Verde = ahorro fiscal (solo PV/AFC). Azul = rendimiento financiero año 1. Total = lo que efectivamente "ganas" en 12 meses sobre el mismo monto.</p>
+        </div>
+        <div class="card">
+          <h3>📈 Valor acumulado a 10 años (interés compuesto)</h3>
+          <div class="chart-wrap tall"><canvas id="chartVeh10"></canvas></div>
+          <p class="muted">Trayectoria del capital reinvirtiendo rendimientos. PV/AFC se mantienen 10 años para conservar exención. CDT se renueva cada año al vencimiento.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <h3>🎯 Matriz de decisión — retornos netos comparados sobre el aporte simulado</h3>
+        <div style="overflow-x:auto">
+          <table id="tablaVehiculos">
+            <thead><tr><th>Vehículo</th><th>Tasa anual</th><th>Rend. año 1</th><th>Ahorro fiscal año 1</th><th>Retorno NETO año 1</th><th>Valor a 10 años</th><th>Liquidez</th><th>Riesgo</th></tr></thead>
+            <tbody id="tablaVehiculosBody"></tbody>
+          </table>
+        </div>
+        <p class="muted" style="margin-top:8px">El <strong>ahorro fiscal</strong> aplica solo el primer año (cuando descuentas el aporte de la base gravable 2026). En años siguientes solo cuenta el rendimiento financiero. Para PV/AFC, retirar antes de 10 años obliga a devolver el ahorro fiscal con UVT actualizada.</p>
+      </div>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card" style="border-left:4px solid #1aa260">
+          <h3>✅ Cuándo elegir PV institucional (Skandia/Porvenir/Protección)</h3>
+          <ul>
+            <li>Vas a declarar renta (ingresos &gt; 1.400 UVT ≈ $70M/año)</li>
+            <li>Estás en tarifa marginal ≥28% (el ahorro fiscal es enorme)</li>
+            <li>Horizonte ≥10 años (jubilación complementaria, no fondo de emergencia)</li>
+            <li>Buscas asesor dedicado + portafolios curados por perfil</li>
+          </ul>
+          <p class="muted"><strong>Tu caso:</strong> ✅ ✅ ✅ ✅ — PV es <strong>el vehículo #1</strong> para los primeros $32M del bono.</p>
+        </div>
+        <div class="card" style="border-left:4px solid #019DF4">
+          <h3>✅ Cuándo elegir FIC abierto (Skandia/Tyba/Bancolombia)</h3>
+          <ul>
+            <li>Ya completaste tope fiscal PV+AFC (1.340 UVT ≈ $67M)</li>
+            <li>Quieres rendimiento similar a CDT pero con <strong>liquidez T+1/T+3</strong></li>
+            <li>Necesitas diversificar (40+ activos vs CDT de 1 banco)</li>
+            <li>No quieres rotar CDTs manualmente cada 90/180/360 días</li>
+          </ul>
+          <p class="muted"><strong>Tu caso:</strong> ✅ — FIC es el siguiente paso lógico después de copar PV+AFC. Empezar con $5–10M en Skandia FIC Moderado.</p>
+        </div>
+        <div class="card" style="border-left:4px solid #f29900">
+          <h3>⚠️ Cuándo NO usar FIC / preferir CDT</h3>
+          <ul>
+            <li>Monto bajo el tope Fogafin ($50M/entidad) y quieres seguro de depósito</li>
+            <li>Tasa fija pactada te da paz mental (no soportas NAV oscilando)</li>
+            <li>Sabes la fecha exacta en que necesitas el dinero (CDT a esa fecha)</li>
+            <li>No quieres lidiar con comisiones de administración (aunque ya estén descontadas de la tasa)</li>
+          </ul>
+          <p class="muted"><strong>Tu caso:</strong> CDT 360d Lulo (13.5% EA) sigue ganando para el bloque "capital comprometido" del bucket líquido.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px;background:#e8f1ff;border:2px solid #019DF4">
+        <h3>🏛️ Simulador dedicado FIC institucional — ajusta monto, perfil y horizonte</h3>
+        <p class="muted">Mueve los sliders para ver el detalle completo de beneficios al enviar dinero a un FIC. La proyección usa tasas <strong>netas de comisión</strong> y la banda de volatilidad refleja el rango realista del NAV.</p>
+
+        <div class="grid cols-3" style="margin-top:10px">
+          <div class="sim-row">
+            <label>💰 Monto a enviar al FIC</label>
+            <input type="range" id="ficMonto" min="1000000" max="100000000" step="1000000" value="10000000" oninput="recalc()" />
+            <div class="v num" id="ficMontoLbl">$10.000.000</div>
+          </div>
+          <div class="sim-row">
+            <label>🎯 Perfil del portafolio</label>
+            <select id="ficPerfil" onchange="recalc()" style="width:100%;padding:8px;border:1px solid #E1E5EA;border-radius:6px">
+              <option value="conservador">Conservador (8.5% EA)</option>
+              <option value="moderado" selected>Moderado (11% EA)</option>
+              <option value="agresivo">Agresivo (13.5% EA)</option>
+            </select>
+            <div class="v num" id="ficDescShow" style="font-size:.85em;margin-top:6px">—</div>
+          </div>
+          <div class="sim-row">
+            <label>⏳ Horizonte (años)</label>
+            <input type="range" id="ficAnios" min="1" max="20" step="1" value="5" oninput="recalc()" />
+            <div class="v num"><span id="ficAniosLbl">5</span> años</div>
+          </div>
+        </div>
+
+        <div class="grid cols-4" style="margin-top:14px">
+          <div class="card kpi green"><div class="label">Rendimiento año 1</div><div class="value num" id="ficRendAnual">—</div><div class="sub" id="ficTasaShow">—</div></div>
+          <div class="card kpi"><div class="label">Equivalente mensual</div><div class="value num" id="ficRendMensual">—</div><div class="sub">Ingreso pasivo mes 1</div></div>
+          <div class="card kpi green"><div class="label">Valor final</div><div class="value num" id="ficValorFinal">—</div><div class="sub">Capital + rendimientos compuestos</div></div>
+          <div class="card kpi"><div class="label">Múltiplo</div><div class="value" id="ficMultiplo">—</div><div class="sub">Cuántas veces se multiplica el capital</div></div>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:14px">
+          <div class="card">
+            <h3>📈 Proyección con bandas de volatilidad</h3>
+            <div class="chart-wrap tall"><canvas id="chartFicProy"></canvas></div>
+            <p class="muted">Azul = escenario central. Verde/rojo punteados = optimista/pesimista (NAV oscila). Naranja = mismo capital en CDT 360d. Gris = inflación COL (5.5%).</p>
+          </div>
+          <div class="card">
+            <h3>💵 Ganancia total acumulada</h3>
+            <table>
+              <tr><td>Rendimiento total ganado</td><td class="num green"><strong id="ficRendTotal">—</strong></td></tr>
+              <tr style="background:#f6f8fb"><td colspan="2"><strong>vs. alternativas (mismo monto y horizonte):</strong></td></tr>
+              <tr><td>vs. CDT 360d (13.5% EA)</td><td class="num" id="ficVsCDT">—</td></tr>
+              <tr><td>vs. Nu Caja remunerada (12% EA)</td><td class="num" id="ficVsNu">—</td></tr>
+              <tr><td>vs. Inflación COL (5.5%)</td><td class="num green" id="ficVsInfl">—</td></tr>
+              <tr><td>vs. Cuenta corriente sin invertir (0%)</td><td class="num green" id="ficVsCC">—</td></tr>
+            </table>
+            <p class="muted" style="margin-top:8px">El valor positivo significa que el FIC <strong>supera</strong> esa alternativa. El negativo significa que la alternativa rinde más. <strong>Importante:</strong> CDT puede ganar en rendimiento bruto, pero NO ofrece diversificación, liquidez intermedia, ni acceso a USD/RV.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:18px">📊 Tabla de escenarios — el mismo perfil aplicado a montos diferentes</h3>
+        <p class="muted">Si tu duda es <em>"¿cuánto debería enviar?"</em>, esta tabla te muestra el beneficio absoluto para 5 puntos de referencia con el perfil seleccionado arriba.</p>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>Monto al FIC</th><th>Rend. año 1</th><th>Rend. mes 1</th><th>Valor a 5 años</th><th>Valor a 10 años</th><th>Valor a 20 años</th><th>Diferencia vs CDT (5y)</th></tr></thead>
+            <tbody id="ficEscenariosBody"></tbody>
+          </table>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:14px">
+          <div class="card" style="background:#e7f6ee">
+            <h3>✅ Beneficios concretos al enviar dinero al FIC</h3>
+            <ul>
+              <li><strong>Ingreso pasivo desde el día 1</strong>: rendimientos se reflejan diariamente en el NAV (no esperas vencimiento como CDT).</li>
+              <li><strong>Interés compuesto automático</strong>: cada peso de rendimiento se reinvierte sin que tengas que hacer nada — efecto bola de nieve.</li>
+              <li><strong>Liquidez T+1 a T+3</strong>: si necesitas plata de emergencia, la tienes en 1–3 días hábiles (CDT te obliga a esperar vencimiento o pagar castigo).</li>
+              <li><strong>Diversificación inmediata</strong>: con $5M ya estás expuesto a 30–80 emisores diferentes. Imposible replicar por tu cuenta sin $200M+.</li>
+              <li><strong>Acceso a TES, bonos corporativos, USD y S&P500</strong>: instrumentos que como persona natural no puedes comprar directos a esos precios.</li>
+              <li><strong>Gestión profesional con prospecto</strong>: alguien con CFA está rebalanceando tu portafolio; tú solo decides perfil y horizonte.</li>
+              <li><strong>Vigilancia Superfinanciera</strong>: NAV diario publicado, reglamento auditado, calificación de riesgo del fondo visible.</li>
+              <li><strong>Escalable</strong>: puedes empezar con $1M y subir cuando valides la experiencia, sin penalidad por incrementar.</li>
+              <li><strong>1 solo certificado fiscal anual</strong>: vs 4–5 certificados si tienes Nu + Lulo + PinBank + DolarApp + CDT separados.</li>
+              <li><strong>No requiere monitoreo</strong>: olvídate de rotar CDTs vencidos, comparar tasas semanalmente o mover plata entre apps.</li>
+            </ul>
+          </div>
+          <div class="card" style="background:#fff4e0">
+            <h3>⚖️ Honestidad intelectual: contras a considerar</h3>
+            <ul>
+              <li><strong>NO Fogafin</strong>: el FIC no tiene seguro de depósito ($50M/entidad). Compensa con: regulación Superfinanciera + tú eres dueño proporcional del portafolio subyacente (si la fiduciaria quiebra, los activos siguen siendo tuyos, no son acreedor del fondo).</li>
+              <li><strong>Comisión de administración 0.5–1.5% anual</strong>: ya está descontada de las tasas que ves (la tasa publicada es <em>neta</em>), pero conviene leer el prospecto para confirmar.</li>
+              <li><strong>Rentabilidad variable</strong>: el NAV puede tener semanas planas o negativas si Banrep sube tasas o hay shock de mercado. A 12+ meses históricamente compensa.</li>
+              <li><strong>CDT puede ganar en bruto</strong>: 13.5% CDT &gt; 11% FIC moderado. El FIC compite por <em>liquidez + diversificación</em>, no por tasa máxima.</li>
+              <li><strong>Algunos FICs tienen permanencia 90–180 días</strong>: retirar antes puede costar 0.5–1% del retiro. Aplica solo a FICs de mediano plazo, no a los de liquidez.</li>
+              <li><strong>Retención en la fuente 4% sobre rendimientos</strong>: igual que CDT, se acredita en declaración renta — recuperable parcialmente.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert success" style="margin-top:14px">
+          <strong>💡 Cómo usar este simulador:</strong> arranca con monto $5M / perfil moderado / 5 años — ese es el "test piloto" recomendado. Luego sube monto a $10M, $20M, $50M para ver cómo escalan los beneficios. Cambia perfil a "agresivo" si tu horizonte es ≥10 años (te beneficias de la prima por riesgo de RV global). El conservador es para "estacionar plata" mientras decides destino final.
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;background:#fff8e1;border-left:4px solid #FFB400">
+        <h3>💡 Recomendación final integrada (combinando los 3 vehículos)</h3>
+        <p>Para el <strong>$159M del bono</strong>, no es elegir UNO sino combinar los tres por capa:</p>
+        <ol>
+          <li><strong>$32M → Pensión Voluntaria Skandia</strong> (máx beneficio fiscal, horizonte 10y) → ahorro fiscal ~$<span id="recPVFiscal">—</span> año 1 + rendimiento 8–10% EA reinvertido.</li>
+          <li><strong>$15M → Cuenta AFC</strong> (segundo bloque fiscal, liquidez si es para vivienda) → ahorro fiscal ~$<span id="recAFCFiscal">—</span> año 1.</li>
+          <li><strong>$10M → FIC Skandia Moderado</strong> (después de copar tope fiscal) → 10–12% EA, liquidez T+3, diversificación profesional.</li>
+          <li><strong>$25M → CDT Lulo 360d + Nu Caja</strong> (bloque líquido sin riesgo) → 12–13.5% EA, Fogafin.</li>
+          <li><strong>$77M → buckets ya definidos en slide 9</strong> (colchón, ROHU, viaje, deudas).</li>
+        </ol>
+        <p class="muted" style="margin-top:6px"><strong>El truco:</strong> el FIC no compite con PV ni con CDT — los <strong>complementa</strong>. Ocupa el espacio entre "necesito beneficio fiscal pero permanencia 10y" (PV) y "necesito liquidez total" (Nu) y "necesito tasa fija máxima con plazo" (CDT).</p>
+      </div>
     </section>
 
     <!-- SLIDE 7: VEHÍCULOS -->
@@ -4625,6 +4796,203 @@ function recalc(){
       type:'line',
       data:{labels:years.map(y=>'Año '+y),datasets:[{label:'Valor PV proyectado',data:proj,borderColor:'#019DF4',backgroundColor:'rgba(1,157,244,.15)',fill:true,tension:.3,borderWidth:3,pointRadius:5,pointHoverRadius:8}]},
       options:{responsive:true, maintainAspectRatio:false, animation:{duration:600}, scales:{y:{ticks:{callback:v=>fmtShort(v)}}}, plugins:{tooltip:{callbacks:{label:c=>fmt(c.parsed.y)}}}}
+    });
+  }
+
+  // ===== Comparador de vehículos del simulador tributario (slide 7) =====
+  // Tarifa marginal aproximada del usuario (basada en base gravable estimada)
+  const tarifaMarginal = (() => {
+    const bg = baseGrav;
+    if (bg > 31000*state.uvt) return 0.39;
+    if (bg > 18970*state.uvt) return 0.37;
+    if (bg > 13335*state.uvt) return 0.35;
+    if (bg > 8670*state.uvt) return 0.33;
+    if (bg > 4065*state.uvt) return 0.28;
+    if (bg > 2300*state.uvt) return 0.19;
+    if (bg > 1700*state.uvt) return 0.10;
+    return 0;
+  })();
+
+  const monto = simPV; // usamos el slider PV como referencia común
+  const vehiculos = [
+    {n:'PV Skandia (institucional)', tasa:0.09, fiscal:true,  color:'#1aa260', liq:'10 años', riesgo:'Bajo-medio'},
+    {n:'Cuenta AFC',                 tasa:0.07, fiscal:true,  color:'#36b37e', liq:'Vivienda', riesgo:'Bajo'},
+    {n:'FIC Skandia Moderado',       tasa:0.11, fiscal:false, color:'#019DF4', liq:'T+3',     riesgo:'Bajo-medio'},
+    {n:'FIC Tyba USD+S&P500',        tasa:0.10, fiscal:false, color:'#7B61FF', liq:'T+3',     riesgo:'Medio'},
+    {n:'CDT Lulo 360d',              tasa:0.135,fiscal:false, color:'#FFB400', liq:'360 días',riesgo:'Muy bajo'},
+    {n:'Nu Caja remunerada',         tasa:0.12, fiscal:false, color:'#820AD1', liq:'Total',   riesgo:'Muy bajo'},
+    {n:'ETF S&P500 directo',         tasa:0.08, fiscal:false, color:'#d93025', liq:'T+2',     riesgo:'Alto'},
+  ];
+
+  const lblMonto = document.getElementById('vehMontoLbl');
+  if (lblMonto) lblMonto.textContent = fmt(monto);
+
+  // Año 1: rendimiento + ahorro fiscal (solo PV/AFC)
+  const ano1Data = vehiculos.map(v => {
+    const rend = monto * v.tasa;
+    const fis  = v.fiscal ? monto * tarifaMarginal : 0;
+    return { rend, fis, total: rend + fis };
+  });
+
+  // 10 años acumulados (compuesto)
+  const acum10 = vehiculos.map(v => monto * Math.pow(1 + v.tasa, 10));
+
+  // Chart año 1 (barras apiladas)
+  if (window._chartVehAno1 && typeof window._chartVehAno1.destroy === 'function') window._chartVehAno1.destroy();
+  window._chartVehAno1 = null;
+  const vA1 = visibleCanvas('chartVehAno1');
+  if (vA1) {
+    window._chartVehAno1 = new Chart(vA1, {
+      type:'bar',
+      data:{
+        labels: vehiculos.map(v=>v.n),
+        datasets:[
+          {label:'Rendimiento año 1', data:ano1Data.map(d=>d.rend), backgroundColor:'#019DF4', borderRadius:4},
+          {label:'Ahorro fiscal año 1', data:ano1Data.map(d=>d.fis), backgroundColor:'#1aa260', borderRadius:4},
+        ]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false, indexAxis:'y', animation:{duration:600},
+        scales:{x:{stacked:true, ticks:{callback:v=>fmtShort(v)}}, y:{stacked:true}},
+        plugins:{legend:{position:'bottom'}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmt(c.parsed.x)}}}
+      }
+    });
+  }
+
+  // Chart 10 años (líneas)
+  if (window._chartVeh10 && typeof window._chartVeh10.destroy === 'function') window._chartVeh10.destroy();
+  window._chartVeh10 = null;
+  const v10 = visibleCanvas('chartVeh10');
+  if (v10) {
+    const years10 = [0,1,2,3,5,7,10];
+    const datasets10 = vehiculos.map(v => ({
+      label: v.n,
+      data: years10.map(y => monto * Math.pow(1+v.tasa, y)),
+      borderColor: v.color, backgroundColor: v.color+'22',
+      borderWidth:2, tension:.3, pointRadius:3, fill:false
+    }));
+    window._chartVeh10 = new Chart(v10, {
+      type:'line',
+      data:{labels: years10.map(y=>'Año '+y), datasets: datasets10},
+      options:{
+        responsive:true, maintainAspectRatio:false, animation:{duration:600},
+        scales:{y:{ticks:{callback:v=>fmtShort(v)}}},
+        plugins:{legend:{position:'bottom', labels:{boxWidth:12, font:{size:10}}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmt(c.parsed.y)}}}
+      }
+    });
+  }
+
+  // Tabla de matriz de decisión
+  const tbody = document.getElementById('tablaVehiculosBody');
+  if (tbody) {
+    tbody.innerHTML = vehiculos.map((v,i)=>{
+      const d = ano1Data[i];
+      const v10y = acum10[i];
+      return '<tr>' +
+        '<td><strong>'+v.n+'</strong></td>' +
+        '<td>'+(v.tasa*100).toFixed(1)+'% EA</td>' +
+        '<td class="num">'+fmt(d.rend)+'</td>' +
+        '<td class="num green">'+(v.fiscal?fmt(d.fis):'—')+'</td>' +
+        '<td class="num"><strong>'+fmt(d.total)+'</strong></td>' +
+        '<td class="num">'+fmt(v10y)+'</td>' +
+        '<td>'+v.liq+'</td>' +
+        '<td>'+v.riesgo+'</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  // Recomendación final: ahorro fiscal de $32M PV + $15M AFC
+  const elRecPV = document.getElementById('recPVFiscal');
+  const elRecAFC = document.getElementById('recAFCFiscal');
+  if (elRecPV) elRecPV.textContent = fmt(32000000 * tarifaMarginal);
+  if (elRecAFC) elRecAFC.textContent = fmt(15000000 * tarifaMarginal);
+
+  // ===== Simulador dedicado FIC institucional =====
+  const ficMonto = +(document.getElementById('ficMonto')?.value || 10000000);
+  const ficPerfil = document.getElementById('ficPerfil')?.value || 'moderado';
+  const ficAnios = +(document.getElementById('ficAnios')?.value || 5);
+  const ficLbl = document.getElementById('ficMontoLbl');
+  const ficAniosLbl = document.getElementById('ficAniosLbl');
+  if (ficLbl) ficLbl.textContent = fmt(ficMonto);
+  if (ficAniosLbl) ficAniosLbl.textContent = ficAnios;
+
+  // Tasas por perfil (netas de comisión)
+  const ficTasas = {
+    conservador: {tasa: 0.085, vol: 0.005, desc:'Renta fija COP, bonos AAA, TES corto plazo'},
+    moderado:    {tasa: 0.11,  vol: 0.015, desc:'70% RF + 30% RV, mix bonos COP/USD + algo de acciones'},
+    agresivo:    {tasa: 0.135, vol: 0.04,  desc:'Renta variable global, ETFs S&P500/MSCI, FIC USD'},
+  };
+  const cfg = ficTasas[ficPerfil] || ficTasas.moderado;
+
+  // Proyección compuesta
+  const ficValorFinal = ficMonto * Math.pow(1+cfg.tasa, ficAnios);
+  const ficRendTotal = ficValorFinal - ficMonto;
+  const ficRendAnual = ficMonto * cfg.tasa;
+
+  // Comparativos
+  const compCDT = ficMonto * Math.pow(1.135, ficAnios);
+  const compNu  = ficMonto * Math.pow(1.12, ficAnios);
+  const compCC  = ficMonto * Math.pow(1.0, ficAnios); // cuenta corriente sin rendimiento
+  const compInflacion = ficMonto * Math.pow(1.055, ficAnios); // inflación COL ~5.5%
+
+  const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setText('ficTasaShow', (cfg.tasa*100).toFixed(2)+'% EA');
+  setText('ficDescShow', cfg.desc);
+  setText('ficRendAnual', fmt(ficRendAnual));
+  setText('ficRendMensual', fmt(ficRendAnual/12));
+  setText('ficValorFinal', fmt(ficValorFinal));
+  setText('ficRendTotal', fmt(ficRendTotal));
+  setText('ficMultiplo', (ficValorFinal/ficMonto).toFixed(2)+'x');
+  setText('ficVsCDT', fmt(ficValorFinal - compCDT));
+  setText('ficVsNu', fmt(ficValorFinal - compNu));
+  setText('ficVsCC', fmt(ficValorFinal - compCC));
+  setText('ficVsInfl', fmt(ficValorFinal - compInflacion));
+
+  // Tabla con 4 escenarios fijos de monto (independientes del slider)
+  const tbodyFic = document.getElementById('ficEscenariosBody');
+  if (tbodyFic) {
+    const escenarios = [5000000, 10000000, 20000000, 50000000, 100000000];
+    tbodyFic.innerHTML = escenarios.map(m => {
+      const rAnual = m * cfg.tasa;
+      const v5  = m * Math.pow(1+cfg.tasa, 5);
+      const v10 = m * Math.pow(1+cfg.tasa, 10);
+      const v20 = m * Math.pow(1+cfg.tasa, 20);
+      const vsCDT5 = v5 - m*Math.pow(1.135,5);
+      return '<tr>'+
+        '<td><strong>'+fmt(m)+'</strong></td>'+
+        '<td class="num">'+fmt(rAnual)+'</td>'+
+        '<td class="num">'+fmt(rAnual/12)+'</td>'+
+        '<td class="num">'+fmt(v5)+'</td>'+
+        '<td class="num">'+fmt(v10)+'</td>'+
+        '<td class="num">'+fmt(v20)+'</td>'+
+        '<td class="num '+(vsCDT5>=0?'green':'')+'">'+(vsCDT5>=0?'+':'')+fmt(vsCDT5)+'</td>'+
+      '</tr>';
+    }).join('');
+  }
+
+  // Gráfico proyección FIC con bandas de volatilidad
+  if (window._chartFicProy && typeof window._chartFicProy.destroy === 'function') window._chartFicProy.destroy();
+  window._chartFicProy = null;
+  const vFP = visibleCanvas('chartFicProy');
+  if (vFP) {
+    const years = Array.from({length: ficAnios+1}, (_,i)=>i);
+    const central = years.map(y => ficMonto * Math.pow(1+cfg.tasa, y));
+    const optimista = years.map(y => ficMonto * Math.pow(1+cfg.tasa+cfg.vol, y));
+    const pesimista = years.map(y => ficMonto * Math.pow(1+cfg.tasa-cfg.vol, y));
+    const cdtComp = years.map(y => ficMonto * Math.pow(1.135, y));
+    const inflComp = years.map(y => ficMonto * Math.pow(1.055, y));
+    window._chartFicProy = new Chart(vFP, {
+      type:'line',
+      data:{labels: years.map(y=>'Año '+y), datasets:[
+        {label:'FIC escenario optimista (+vol)', data:optimista, borderColor:'#1aa260', borderDash:[4,4], borderWidth:1.5, pointRadius:0, tension:.2, fill:false},
+        {label:'FIC central ('+cfg.tasa*100+'% EA)', data:central, borderColor:'#019DF4', backgroundColor:'rgba(1,157,244,.15)', borderWidth:3, tension:.3, fill:'-1', pointRadius:4},
+        {label:'FIC escenario pesimista (-vol)', data:pesimista, borderColor:'#d93025', borderDash:[4,4], borderWidth:1.5, pointRadius:0, tension:.2, fill:'-1', backgroundColor:'rgba(217,48,37,.08)'},
+        {label:'CDT 360d (13.5% EA, referencia)', data:cdtComp, borderColor:'#FFB400', borderWidth:2, tension:.2, pointRadius:3, fill:false},
+        {label:'Inflación COL (5.5%, referencia)', data:inflComp, borderColor:'#999', borderDash:[2,2], borderWidth:1.5, pointRadius:0, tension:.2, fill:false},
+      ]},
+      options:{responsive:true, maintainAspectRatio:false, animation:{duration:600},
+        scales:{y:{ticks:{callback:v=>fmtShort(v)}}},
+        plugins:{legend:{position:'bottom', labels:{boxWidth:12, font:{size:10}}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmt(c.parsed.y)}}}}
     });
   }
 
