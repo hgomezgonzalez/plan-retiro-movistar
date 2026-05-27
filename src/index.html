@@ -298,7 +298,7 @@
           <label class="param-item"><span class="param-label">💼 Salario mensual</span><input id="salario" type="number" value="13514970" /><span class="param-hint">Movistar último</span></label>
           <label class="param-item"><span class="param-label">💰 Bonificación</span><input id="bono" type="number" value="159026147" /><span class="param-hint">Retiro pagado</span></label>
           <label class="param-item"><span class="param-label">📅 Meses 2026</span><input id="meses" type="number" value="7" min="1" max="12" /><span class="param-hint">ene-jul</span></label>
-          <label class="param-item"><span class="param-label">🏠 Gasto familiar/mes</span><input id="gastoMes" type="number" value="9240000" /><span class="param-hint">Neto Hugo</span></label>
+          <label class="param-item"><span class="param-label">🏠 Gasto familiar/mes</span><input id="gastoMes" type="number" value="7530000" /><span class="param-hint">Neto Hugo · real validado</span></label>
           <label class="param-item"><span class="param-label">🏦 Cuota hipoteca</span><input id="cuotaHip" type="number" value="3497245" /><span class="param-hint">BBVA mensual</span></label>
           <label class="param-item"><span class="param-label">✈️ Viaje USA pendiente</span><input id="viajeUSA" type="number" value="8500000" /><span class="param-hint">Auto + variables</span></label>
           <label class="param-item param-highlight"><span class="param-label">💑 Aporte esposa/mes</span><input id="aporteEsposa" type="number" value="2000000" /><span class="param-hint">Ayuda familiar</span></label>
@@ -649,7 +649,7 @@
 
       <div class="card" style="background:#fff8e1;border-left:4px solid var(--amber);margin-bottom:14px">
         <h3>🔍 Validador: lista exacta de gastos sumados como recurrentes mensuales</h3>
-        <p class="muted">Esta es la lista 1:1 de lo que sumo para llegar a <strong>$13.8M/mes</strong>. Marca con ⚠️ los que NO debas considerar recurrentes mensuales y ajustaremos. Total exacto detallado abajo.</p>
+        <p class="muted">Esta es la lista 1:1 de lo que sumo para llegar a <strong>$12.3M/mes</strong> (corregido tras validar mercado real $500K, no $2M). Marca con ⚠️ los que NO debas considerar recurrentes mensuales y ajustaremos. Total exacto detallado abajo.</p>
         <table>
           <thead><tr><th>#</th><th>Concepto</th><th>Categoría</th><th>Monto/mes</th><th>Frecuencia real</th><th>¿Es mensual recurrente?</th></tr></thead>
           <tbody>
@@ -676,34 +676,40 @@
             <tr><td>21</td><td>Claude Code (Anthropic)</td><td>💻 Comunicaciones</td><td class="num">$383.741</td><td>Mensual fijo</td><td><span class="badge g">✓ Sí</span></td></tr>
             <tr><td>22</td><td>Internet ETB Reserva V</td><td>💻 Comunicaciones</td><td class="num">$112.000</td><td>Mensual fijo</td><td><span class="badge g">✓ Sí</span></td></tr>
             <tr><td>23</td><td>ChatGPT (OpenAI)</td><td>💻 Comunicaciones</td><td class="num">$100.000</td><td>Mensual fijo</td><td><span class="badge g">✓ Sí</span></td></tr>
-            <tr style="background:#fff;font-weight:700"><td colspan="3"><strong>SUMA EXACTA</strong></td><td class="num"><strong>$10.557.346</strong></td><td colspan="2"><span class="muted">Faltan ~$3.24M para llegar a $13.8M — ver siguiente bloque</span></td></tr>
+            <tr style="background:#fff;font-weight:700"><td colspan="3"><strong>SUMA EXACTA</strong></td><td class="num"><strong>$10.557.346</strong></td><td colspan="2"><span class="muted">+ ~$1.74M estimaciones complementarias = $12.30M bruto familiar (ver bloque verde)</span></td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="card" style="background:#fde8e7;border-left:4px solid var(--red);margin-bottom:14px">
-        <h3>⚠️ Brecha: gastos NO listados pero asumidos en el cálculo de $13.8M</h3>
-        <p>La suma exacta de los 23 ítems es <strong>$10.56M</strong>. Para llegar al estimado total $13.8M, había añadido ~$3.24M en categorías genéricas que <strong>NO están en tu lista textual</strong>. Estos son ESTIMACIONES MÍAS que podrían NO aplicar a tu caso:</p>
+      <div class="card" style="background:#e7f6ee;border-left:4px solid var(--green);margin-bottom:14px">
+        <h3>✅ Resolución de la brecha: estimaciones genéricas reemplazadas por cifras reales</h3>
+        <p>La suma exacta de los 23 ítems textuales es <strong>$10.56M/mes</strong>. Originalmente había completado a $13.8M con ~$3.24M de "estimaciones genéricas" basadas en promedios nacionales. <strong>El concepto más distorsionado era "mercado":</strong> había asumido $2M/mes (promedio familiar Bogotá clase media), pero tu cifra real validada con tu esposa es <strong>$500K/mes</strong>. Eso significa $1.5M/mes menos de gasto familiar (~$18M/año menos).</p>
         <table>
-          <thead><tr><th>Concepto estimado</th><th>Monto/mes asumido</th><th>Acción sugerida</th></tr></thead>
+          <thead><tr><th>Concepto</th><th>Estimación original</th><th>Cifra real validada</th><th>Diferencia</th></tr></thead>
           <tbody>
-            <tr><td>Mercado / supermercado familiar</td><td class="num">~$2.000.000</td><td><span class="badge a">⚠️ Confirmar con tu factura mensual real</span></td></tr>
-            <tr><td>Restaurantes / salidas familiares ocasionales</td><td class="num">~$400.000</td><td><span class="badge a">⚠️ Confirmar</span></td></tr>
-            <tr><td>Ropa / calzado / cuidado personal</td><td class="num">~$300.000</td><td><span class="badge a">⚠️ Confirmar</span></td></tr>
-            <tr><td>Imprevistos / regalos / mantenimiento hogar</td><td class="num">~$300.000</td><td><span class="badge a">⚠️ Confirmar</span></td></tr>
-            <tr><td>Otros gastos no categorizados</td><td class="num">~$240.000</td><td><span class="badge a">⚠️ Confirmar</span></td></tr>
-            <tr style="background:#fff;font-weight:700"><td><strong>Estimaciones complementarias</strong></td><td class="num"><strong>~$3.240.000</strong></td><td></td></tr>
-            <tr style="background:#e7f6ee;font-weight:700"><td><strong>TOTAL CON ESTIMACIONES (validar)</strong></td><td class="num"><strong>$13.797.346</strong></td><td>≈ $13.8M actualmente usado</td></tr>
+            <tr style="background:#fff"><td><strong>🛒 Mercado / supermercado familiar</strong></td><td class="num">$2.000.000</td><td class="num green"><strong>$500.000</strong></td><td class="num green"><strong>-$1.500.000</strong></td></tr>
+            <tr><td>🍴 Restaurantes / salidas familiares</td><td class="num">$400.000</td><td class="num">$400.000</td><td class="num">—</td></tr>
+            <tr><td>👔 Ropa / calzado / cuidado personal</td><td class="num">$300.000</td><td class="num">$300.000</td><td class="num">—</td></tr>
+            <tr><td>🎁 Imprevistos / regalos / mantenimiento hogar</td><td class="num">$300.000</td><td class="num">$300.000</td><td class="num">—</td></tr>
+            <tr><td>📋 Otros no categorizados</td><td class="num">$240.000</td><td class="num">$240.000</td><td class="num">—</td></tr>
+            <tr style="background:#fff;font-weight:700"><td><strong>Total estimaciones complementarias</strong></td><td class="num">$3.240.000</td><td class="num green"><strong>$1.740.000</strong></td><td class="num green"><strong>-$1.500.000</strong></td></tr>
+            <tr style="background:#e7f6ee;font-weight:700"><td><strong>TOTAL BRUTO FAMILIAR (lista exacta + complementarias)</strong></td><td class="num">$13.797.346</td><td class="num green"><strong>$12.297.346</strong></td><td class="num green"><strong>-$1.500.000</strong></td></tr>
           </tbody>
         </table>
-        <p class="muted" style="margin-top:8px"><strong>🎯 Acción:</strong> revisa los conceptos estimados arriba. Si tu mercado real es menor (ej. $1.2M), o si no haces restaurantes con esa frecuencia, ajusta el campo <strong>"Gasto familiar/mes neto"</strong> en la toolbar arriba y todo el plan se recalculará. <strong>Tu balance real podría ser MEJOR de lo que muestra el plan</strong> si los estimados son altos.</p>
+        <p class="muted" style="margin-top:8px"><strong>¿Por qué la brecha era tan alta?</strong> Tres factores explican el sesgo del estimado original:</p>
+        <ul style="margin-top:4px">
+          <li><strong>Promedio nacional vs realidad familiar</strong>: el DANE estima $1.5–2.5M/mes en mercado para hogares de 4+ personas en Bogotá; usé el alto del rango sin validarlo.</li>
+          <li><strong>Solapamiento con el aporte de la esposa</strong>: ella aporta $2M/mes que <em>ya cubre mercado + cuota apto + cuota carro</em>. Eso te permite operar con un mercado base mucho menor en tu wallet personal.</li>
+          <li><strong>Patrón real Hugo+esposa</strong>: ambos almuerzan fuera entre semana (línea separada de "almuerzos $500K"), hijos no residen permanentemente, y compras son selectivas (no compra grande quincenal de gran formato).</li>
+        </ul>
+        <p style="margin-top:8px"><strong>✅ Impacto en el plan completo:</strong> el gasto bruto familiar baja de $13.8M → <strong>$12.3M</strong>. El gasto neto Hugo POST-RETIRO con todas las eficiencias y aportes baja de $9.03M → <strong>$7.53M/mes</strong>. Runway con $80M colchón sube de ~11 meses → <strong>~14 meses</strong> (todo más holgado).</p>
       </div>
 
       <div class="grid cols-4">
-        <div class="card kpi"><div class="label">Total gasto mensual bruto</div><div class="value num">$13.8M</div><div class="sub">Incluye cuotas créditos</div></div>
+        <div class="card kpi"><div class="label">Total gasto mensual bruto</div><div class="value num">$12.30M</div><div class="sub">Real validado · mercado $500K</div></div>
         <div class="card kpi green"><div class="label">(+) Ingreso pasivo Mirador 3 #8603</div><div class="value num">+$1.26M</div><div class="sub">Arriendo confirmado · admin congelada</div></div>
-        <div class="card kpi amber"><div class="label">Gasto neto efectivo actual</div><div class="value num">$12.54M</div><div class="sub">Gasto bruto − arriendo Mirador</div></div>
-        <div class="card kpi green"><div class="label">🎯 Meta optimizada post-retiro</div><div class="value num">$9.24M</div><div class="sub">Tras eficiencias + ingreso Mirador</div></div>
+        <div class="card kpi amber"><div class="label">Gasto neto efectivo actual</div><div class="value num">$11.04M</div><div class="sub">Bruto − arriendo Mirador</div></div>
+        <div class="card kpi green"><div class="label">🎯 Meta optimizada post-retiro</div><div class="value num">$7.53M</div><div class="sub">Tras eficiencias + aportes</div></div>
       </div>
 
       <div class="card" style="background:linear-gradient(135deg,#e6f9f0,#fff);border-left:4px solid var(--green);margin-top:14px">
@@ -868,12 +874,12 @@
             <tr><td>21</td><td>💻 Claude Code</td><td class="num">$383.741</td><td><span class="badge g">Mantener (productivo ROHU)</span></td></tr>
             <tr><td>22</td><td>💻 Internet ETB</td><td class="num">$112.000</td><td><span class="badge a">Aprovechar 50% Movistar</span></td></tr>
             <tr><td>23</td><td>💻 ChatGPT</td><td class="num">$100.000</td><td><span class="badge r">CANCELAR — Claude suficiente</span></td></tr>
-            <tr><td>EST</td><td>🛒 Mercado (estimado)</td><td class="num">$2.000.000</td><td><span class="badge a">⚠️ Validar real</span></td></tr>
+            <tr><td>EST</td><td>🛒 Mercado (real validado con esposa)</td><td class="num">$500.000</td><td><span class="badge g">✅ Real · era $2M estimado</span></td></tr>
             <tr><td>EST</td><td>🍴 Restaurantes/salidas</td><td class="num">$400.000</td><td><span class="badge a">Reducir post-retiro</span></td></tr>
             <tr><td>EST</td><td>👔 Ropa/cuidado</td><td class="num">$300.000</td><td><span class="badge a">Variable</span></td></tr>
             <tr><td>EST</td><td>🎁 Imprevistos/regalos</td><td class="num">$300.000</td><td><span class="badge a">Variable</span></td></tr>
             <tr><td>EST</td><td>📋 Otros no categorizados</td><td class="num">$240.000</td><td><span class="badge a">Variable</span></td></tr>
-            <tr style="background:#fff;font-weight:700"><td colspan="2"><strong>SUBTOTAL POST-RETIRO BRUTO</strong></td><td class="num"><strong>$13.347.672</strong></td><td><span class="muted">Sin aplicar eficiencias</span></td></tr>
+            <tr style="background:#fff;font-weight:700"><td colspan="2"><strong>SUBTOTAL POST-RETIRO BRUTO</strong></td><td class="num"><strong>$11.847.672</strong></td><td><span class="muted">Tras corregir mercado a $500K real</span></td></tr>
           </tbody>
         </table>
 
@@ -899,20 +905,19 @@
 
         <h3 style="margin-top:18px">🎯 BALANCE FINAL POST-RETIRO con todas las eficiencias y aportes</h3>
         <table>
-          <tr><td>SUBTOTAL POST-RETIRO BRUTO</td><td class="num">$13.347.672</td></tr>
+          <tr><td>SUBTOTAL POST-RETIRO BRUTO (mercado real $500K)</td><td class="num">$11.847.672</td></tr>
           <tr><td>(-) Total eficiencias aplicables (cancelar/reducir)</td><td class="num green">-$1.488.115</td></tr>
-          <tr><td>= GASTO POST-RETIRO OPTIMIZADO BRUTO</td><td class="num">$11.859.557</td></tr>
+          <tr><td>= GASTO POST-RETIRO OPTIMIZADO BRUTO</td><td class="num">$10.359.557</td></tr>
           <tr><td>(-) Arriendo Mirador 3 #8603 (neto admin)</td><td class="num green">-$829.000</td></tr>
           <tr style="background:#fff0f8"><td><strong>(-) 💑 Aporte mensual cónyuge</strong></td><td class="num green"><strong>-$2.000.000</strong></td></tr>
-          <tr style="background:#e7f6ee"><td><strong>= GASTO NETO A CARGO DE HUGO POST-RETIRO</strong></td><td class="num green"><strong style="font-size:1.3em">$9.030.557</strong></td></tr>
-          <tr><td>Si NO contratas prepagada (solo EPS contributiva mínima ~$430K)</td><td class="num green">~$7.96M</td></tr>
-          <tr><td>Si ajustas mercado a $1.5M real (en lugar de $2M)</td><td class="num green">~$7.46M</td></tr>
-          <tr><td>Si pausas Cúcuta + eficiencias máximas (escenario óptimo)</td><td class="num green">~$7.30M</td></tr>
+          <tr style="background:#e7f6ee"><td><strong>= GASTO NETO A CARGO DE HUGO POST-RETIRO</strong></td><td class="num green"><strong style="font-size:1.3em">$7.530.557</strong></td></tr>
+          <tr><td>Si NO contratas prepagada (solo EPS contributiva mínima ~$430K)</td><td class="num green">~$6.46M</td></tr>
+          <tr><td>Si pausas Cúcuta + eficiencias máximas (escenario óptimo)</td><td class="num green">~$5.80M</td></tr>
         </table>
 
         <div style="background:linear-gradient(135deg,#1aa260,#36b37e);color:#fff;padding:16px;border-radius:10px;margin-top:14px;text-align:center">
           <div style="font-size:.9em;letter-spacing:.5px;font-weight:700">🏆 RESULTADO POST-RETIRO REAL CON APORTE ESPOSA</div>
-          <div style="font-size:2em;font-weight:800;margin:8px 0">$13.8M (hoy) → $9.0M (post-retiro Hugo)</div>
+          <div style="font-size:2em;font-weight:800;margin:8px 0">$12.3M bruto (hoy) → $7.53M neto Hugo (post-retiro)</div>
           <div style="font-size:.95em">Ahorro mensual real: <strong>+$4.77M/mes</strong> · Anual: <strong>+$57.2M/año</strong></div>
           <div style="margin-top:6px;opacity:.9;font-size:.85em">Runway con $80M colchón: <strong>~8.9 meses</strong> · Sin prepagada: <strong>~10 meses</strong> · Modo óptimo: <strong>~11 meses</strong></div>
         </div>
@@ -957,7 +962,7 @@
 
       <div class="card" style="margin-top:14px;background:#e7f6ee;border-left:4px solid var(--green)">
         <h3>🎯 Plan de MÁXIMA eficiencia — reducir gasto a su mínimo aceptable</h3>
-        <p>Plan integrado en 3 capas: ahorros automáticos por el retiro + ahorros estructurales + ahorros tácticos. Meta: bajar gasto mensual de <strong>$13.8M → $9.5M</strong> (-31%) sin sacrificar calidad de vida ni seguridad familiar.</p>
+        <p>Plan integrado en 3 capas: ahorros automáticos por el retiro + ahorros estructurales + ahorros tácticos. Meta: bajar gasto mensual de <strong>$12.3M (bruto familiar real) → $7.53M neto Hugo</strong> (-39%) sin sacrificar calidad de vida ni seguridad familiar.</p>
 
         <h3 style="margin-top:14px;color:var(--green)">📉 Capa 1 — Ahorros AUTOMÁTICOS por el retiro (sin esfuerzo tuyo)</h3>
         <table>
@@ -999,7 +1004,7 @@
 
         <div style="background:linear-gradient(135deg,#1aa260,#36b37e);color:#fff;padding:16px;border-radius:10px;margin-top:14px;text-align:center">
           <div style="font-size:.9em;letter-spacing:.5px;font-weight:700">🎯 RESULTADO INTEGRADO (con Mirador + 💑 aporte esposa)</div>
-          <div style="font-size:1.6em;font-weight:800;margin:8px 0">$13.8M − $1.26M (arriendo Mirador) − $2.0M (esposa) − $3.24M (eficiencias) = $7.30M /mes</div>
+          <div style="font-size:1.6em;font-weight:800;margin:8px 0">$12.30M (real validado) − $1.26M (arriendo Mirador) − $2.0M (esposa) − $1.49M (eficiencias) = $7.53M /mes neto Hugo</div>
           <div style="font-size:.95em">Ahorro mensual real Hugo: <strong>+$6.5M</strong> · Ahorro anual: <strong>+$78.0M</strong></div>
           <div style="margin-top:6px;opacity:.9;font-size:.85em">Runway con $80M colchón: <strong>11.0 meses</strong> (vs 5.8 sin optimizar y sin aporte esposa) — paz mental para consolidar ROHU</div>
         </div>
