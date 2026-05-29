@@ -2292,14 +2292,20 @@
           </table>
 
           <hr class="soft" />
-          <h3 style="margin-top:12px;color:#019DF4">🏛️ Impacto FIC institucional</h3>
+          <h3 style="margin-top:12px;color:#019DF4">🏛️ Impacto FIC institucional (con retención en la fuente)</h3>
           <table>
             <tr><td>Monto aportado al FIC</td><td class="num" id="ficMontoSim">—</td></tr>
-            <tr><td>Rendimiento financiero AÑO 1 (11% EA neto)</td><td class="num green" id="ficRendSim">—</td></tr>
-            <tr><td>Equivalente mensual</td><td class="num green" id="ficRendMesSim">—</td></tr>
-            <tr><td>Ahorro fiscal directo</td><td class="num">$0 <span class="muted" style="font-size:.85em">(FIC no es exento)</span></td></tr>
+            <tr><td>Rendimiento bruto AÑO 1 (11% EA neto comisión)</td><td class="num green" id="ficRendSim">—</td></tr>
+            <tr><td>Equivalente mensual bruto</td><td class="num green" id="ficRendMesSim">—</td></tr>
+            <tr><td>(-) Retención en la fuente 4% sobre rendimientos</td><td class="num" id="ficRetAno1" style="color:#d93025">—</td></tr>
+            <tr><td><strong>= Rendimiento NETO año 1</strong></td><td class="num green"><strong id="ficRendNetoAno1">—</strong></td></tr>
+            <tr><td>Ahorro fiscal directo</td><td class="num">$0 <span class="muted" style="font-size:.85em">(FIC no es exento, sí gravable)</span></td></tr>
             <tr style="background:#e7f6ee"><td><strong>Valor del FIC a 5 años (compuesto)</strong></td><td class="num green"><strong id="fic5Sim">—</strong></td></tr>
             <tr style="background:#e7f6ee"><td><strong>Valor del FIC a 10 años (compuesto)</strong></td><td class="num green"><strong id="fic10Sim">—</strong></td></tr>
+            <tr><td>Retención acumulada si retiras TODO a 5 años</td><td class="num" id="ficRet5" style="color:#d93025">—</td></tr>
+            <tr style="background:#fff8e1"><td><strong>Neto retirable a 5 años (después de retención)</strong></td><td class="num"><strong id="ficNeto5">—</strong></td></tr>
+            <tr><td>Retención acumulada si retiras TODO a 10 años</td><td class="num" id="ficRet10" style="color:#d93025">—</td></tr>
+            <tr style="background:#fff8e1"><td><strong>Neto retirable a 10 años (después de retención)</strong></td><td class="num"><strong id="ficNeto10">—</strong></td></tr>
           </table>
 
           <hr class="soft" />
@@ -2385,6 +2391,88 @@
         </div>
       </div>
 
+      <div class="card" style="margin-top:18px;background:linear-gradient(135deg,#fde8e7,#fff);border:2px solid #d93025">
+        <h3>💸 Escenario: retirar del FIC para saldar hipoteca + $40M varios — impacto retención fuente</h3>
+        <p class="muted">Simula el retiro del FIC para cubrir <strong>$60.125.355 (saldo hipoteca BBVA)</strong> + <strong>$40M varios</strong> = <strong>$100.125.355 netos requeridos</strong>. La retención en la fuente del 4% (Decreto 1625/2016 Art. 1.2.4.6.20) solo aplica sobre los <strong>rendimientos</strong> proporcionales retirados, no sobre el capital aportado.</p>
+
+        <div class="grid cols-3" style="margin-top:10px">
+          <div class="sim-row">
+            <label>💰 Necesidad NETA total (ya configurada con tu caso)</label>
+            <input type="range" id="escNecesidad" min="20000000" max="200000000" step="1000000" value="100125355" oninput="recalc()" />
+            <div class="v num"><span id="escNecesidadLbl">—</span></div>
+          </div>
+          <div class="sim-row">
+            <label>🏠 Saldo hipoteca BBVA a saldar (auto)</label>
+            <input type="range" id="escHipo" min="0" max="100000000" step="100000" value="60125355" oninput="recalc()" />
+            <div class="v num"><span id="escHipoLbl">—</span></div>
+          </div>
+          <div class="sim-row">
+            <label>💼 Varios (ROHU, viaje, fondo emergencia, etc.)</label>
+            <input type="range" id="escVarios" min="0" max="100000000" step="1000000" value="40000000" oninput="recalc()" />
+            <div class="v num"><span id="escVariosLbl">—</span></div>
+          </div>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:14px">
+          <div class="card">
+            <h3>📊 Descomposición del retiro (con retención calculada)</h3>
+            <table>
+              <tr><td>Necesidad NETA total a recibir</td><td class="num"><strong id="escNetaTd">—</strong></td></tr>
+              <tr><td>Capital aportado al FIC (slider arriba)</td><td class="num" id="escCapital">—</td></tr>
+              <tr><td>Valor actual del FIC (horizonte seleccionado)</td><td class="num" id="escValorFIC">—</td></tr>
+              <tr><td>Rendimientos acumulados generados</td><td class="num green" id="escRendAcum">—</td></tr>
+              <tr style="background:#fff5f4"><td><strong>% rendimientos sobre valor total</strong></td><td class="num" id="escPctRend">—</td></tr>
+              <tr style="background:#fff5f4"><td>Retiro BRUTO necesario (para netos $X)</td><td class="num" id="escBruto">—</td></tr>
+              <tr><td>Capital proporcional retirado</td><td class="num" id="escCapitalRet">—</td></tr>
+              <tr><td>Rendimientos proporcionales retirados</td><td class="num green" id="escRendRet">—</td></tr>
+              <tr style="background:#fde8e7"><td><strong>(-) Retención fuente 4% sobre rendimientos</strong></td><td class="num" style="color:#d93025"><strong id="escRetencion">—</strong></td></tr>
+              <tr style="background:#fff8e1"><td><strong>(-) GMF 4×1000 (transferencia bancaria)</strong></td><td class="num" style="color:#d93025"><strong id="escGMF">—</strong></td></tr>
+              <tr style="background:#e7f6ee"><td><strong>= NETO FINAL A TU CUENTA</strong></td><td class="num green"><strong id="escNetoFinal">—</strong></td></tr>
+              <tr><td>FIC remanente tras el retiro</td><td class="num" id="escRemanente">—</td></tr>
+            </table>
+            <p class="muted" style="margin-top:6px;font-size:.85em">⚠️ GMF: el 4×1000 se exime una sola cuenta marcada como "cuenta exenta" hasta 350 UVT/mes. Si planeas retirar mensual, márcala con BBVA.</p>
+          </div>
+
+          <div class="card">
+            <h3>📈 Visualización del retiro</h3>
+            <div class="chart-wrap"><canvas id="chartEscDecomp"></canvas></div>
+            <p class="muted">Verde = capital tuyo (sin retención). Azul = rendimiento neto. Rojo = retención fuente + GMF. <strong>El rojo es el costo real de retirar.</strong></p>
+
+            <h3 style="margin-top:14px">⚖️ Veredicto financiero</h3>
+            <div id="escVeredicto" style="padding:10px;border-radius:6px"></div>
+          </div>
+        </div>
+
+        <div class="grid cols-3" style="margin-top:14px">
+          <div class="card kpi" style="border-top:3px solid #d93025">
+            <div class="label">💸 Retención + GMF total</div>
+            <div class="value num" id="kpiRetTotal">—</div>
+            <div class="sub">Lo que te quita el Estado al retirar</div>
+          </div>
+          <div class="card kpi green" style="border-top:3px solid var(--green)">
+            <div class="label">📈 % real de fricción</div>
+            <div class="value" id="kpiFriccionPct">—</div>
+            <div class="sub">Retención / Retiro bruto</div>
+          </div>
+          <div class="card kpi" style="border-top:3px solid #019DF4">
+            <div class="label">💡 Vs. saldar con bono directo</div>
+            <div class="value num" id="kpiVsBono">—</div>
+            <div class="sub">Costo de pasar por FIC primero</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;background:#fff">
+          <h3>📋 Comparativa de retención por vehículo (al retirar $100M netos)</h3>
+          <div style="overflow-x:auto">
+            <table>
+              <thead><tr><th>Vehículo</th><th>Tasa retención</th><th>Base de retención</th><th>Retención estimada</th><th>Bruto necesario</th><th>Cuándo se aplica</th></tr></thead>
+              <tbody id="tablaRetencionesBody"></tbody>
+            </table>
+          </div>
+          <p class="muted" style="margin-top:6px;font-size:.85em">Calculado para un retiro NETO de la "Necesidad" del slider arriba, asumiendo el rendimiento generado del FIC simulado. Para vehículos sin retención (cuenta ahorros bajo 7 UVT, bono directo), retiro bruto = retiro neto.</p>
+        </div>
+      </div>
+
       <div class="card" style="margin-top:18px;background:#e8f1ff;border:2px solid #019DF4">
         <h3>🏛️ Simulador dedicado FIC institucional — ajusta monto, perfil y horizonte</h3>
         <p class="muted">Mueve los sliders para ver el detalle completo de beneficios al enviar dinero a un FIC. La proyección usa tasas <strong>netas de comisión</strong> y la banda de volatilidad refleja el rango realista del NAV.</p>
@@ -2442,7 +2530,7 @@
         <p class="muted">Si tu duda es <em>"¿cuánto debería enviar?"</em>, esta tabla te muestra el beneficio absoluto para 5 puntos de referencia con el perfil seleccionado arriba.</p>
         <div style="overflow-x:auto">
           <table>
-            <thead><tr><th>Monto al FIC</th><th>Rend. año 1</th><th>Rend. mes 1</th><th>Valor a 5 años</th><th>Valor a 10 años</th><th>Valor a 20 años</th><th>Diferencia vs CDT (5y)</th></tr></thead>
+            <thead><tr><th>Monto al FIC</th><th>Rend. año 1 (bruto)</th><th>Rend. mes 1 (bruto)</th><th>Valor a 5 años</th><th>Retención 4% a 5y</th><th>Neto a 5 años</th><th>Neto a 10 años</th></tr></thead>
             <tbody id="ficEscenariosBody"></tbody>
           </table>
         </div>
@@ -4813,24 +4901,200 @@ function recalc(){
 
   // ===== Impacto FIC institucional en el bloque "Resultado fiscal" =====
   const FIC_TASA_MAIN = 0.11; // moderado por defecto, neto de comisión
+  const RETENCION_FIC = 0.04; // 4% sobre rendimientos (Decreto 1625/2016 Art. 1.2.4.6.20)
+  const GMF_TASA = 0.004;     // 4×1000 sobre transferencias bancarias
+
   const ficRendAnio1 = simFIC * FIC_TASA_MAIN;
+  const ficRetAno1 = ficRendAnio1 * RETENCION_FIC;
+  const ficRendNetoAno1 = ficRendAnio1 - ficRetAno1;
   const fic5y = simFIC * Math.pow(1 + FIC_TASA_MAIN, 5);
   const fic10y = simFIC * Math.pow(1 + FIC_TASA_MAIN, 10);
+  const ficRend5y = fic5y - simFIC;
+  const ficRend10y = fic10y - simFIC;
+  const ficRet5y = ficRend5y * RETENCION_FIC;
+  const ficRet10y = ficRend10y * RETENCION_FIC;
+  const ficNeto5 = fic5y - ficRet5y;
+  const ficNeto10 = fic10y - ficRet10y;
+
   const setT = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
   setT('ficMontoSim', fmt(simFIC));
   setT('ficRendSim', '+'+fmt(ficRendAnio1));
   setT('ficRendMesSim', '+'+fmt(ficRendAnio1/12));
+  setT('ficRetAno1', '-'+fmt(ficRetAno1));
+  setT('ficRendNetoAno1', '+'+fmt(ficRendNetoAno1));
   setT('fic5Sim', fmt(fic5y));
   setT('fic10Sim', fmt(fic10y));
+  setT('ficRet5', '-'+fmt(ficRet5y));
+  setT('ficRet10', '-'+fmt(ficRet10y));
+  setT('ficNeto5', fmt(ficNeto5));
+  setT('ficNeto10', fmt(ficNeto10));
 
-  // KPI integrado: beneficio total año 1 (ahorro fiscal + rendimiento FIC)
-  const beneficioTotalAno1 = ahorroFiscal + ficRendAnio1;
+  // KPI integrado: beneficio total año 1 NETO (ahorro fiscal + rendimiento FIC neto retención)
+  const beneficioTotalAno1 = ahorroFiscal + ficRendNetoAno1;
   setT('beneficioTotal', fmt(beneficioTotalAno1));
   setT('beneficioBreakdown',
     'Ahorro fiscal PV/AFC: ' + fmt(ahorroFiscal) +
-    ' + Rendimiento FIC: ' + fmt(ficRendAnio1) +
-    (simFIC > 0 ? ' (sobre $'+(simFIC/1e6).toFixed(1)+'M aportados)' : '')
+    ' + Rendimiento FIC neto retención: ' + fmt(ficRendNetoAno1) +
+    (simFIC > 0 ? ' (sobre $'+(simFIC/1e6).toFixed(1)+'M aportados, retención -$'+(ficRetAno1/1e3).toFixed(0)+'K)' : '')
   );
+
+  // ===== Escenario: saldar hipoteca + 40M varios — impacto retención =====
+  const escHipo = +(document.getElementById('escHipo')?.value || 60125355);
+  const escVarios = +(document.getElementById('escVarios')?.value || 40000000);
+  let escNecesidad = +(document.getElementById('escNecesidad')?.value || 100125355);
+
+  // Si hipo + varios fue ajustado, sincroniza necesidad
+  const elNec = document.getElementById('escNecesidad');
+  if (elNec) {
+    const suma = escHipo + escVarios;
+    if (Math.abs(+elNec.value - suma) > 100000) {
+      // Solo sincroniza si el usuario no movió manualmente la necesidad
+      elNec.value = suma;
+      escNecesidad = suma;
+    }
+  }
+
+  setT('escHipoLbl', fmt(escHipo));
+  setT('escVariosLbl', fmt(escVarios));
+  setT('escNecesidadLbl', fmt(escNecesidad));
+  setT('escNetaTd', fmt(escNecesidad));
+
+  // Asumir horizonte 5 años para el escenario (lo más realista para bono recién recibido)
+  const escHorizonte = 5;
+  const valorFICesc = simFIC > 0 ? simFIC * Math.pow(1 + FIC_TASA_MAIN, escHorizonte) : 0;
+  const rendAcumEsc = valorFICesc - simFIC;
+  const pctRendEsc = valorFICesc > 0 ? rendAcumEsc / valorFICesc : 0;
+
+  setT('escCapital', fmt(simFIC));
+  setT('escValorFIC', fmt(valorFICesc) + ' (a ' + escHorizonte + 'a, 11% EA)');
+  setT('escRendAcum', '+'+fmt(rendAcumEsc));
+  setT('escPctRend', (pctRendEsc*100).toFixed(1) + '%');
+
+  // Cálculo del retiro bruto para netos = escNecesidad
+  // Neto = Bruto - retención - GMF
+  // Retención = 0.04 × (Bruto × pctRend)
+  // GMF = 0.004 × Bruto
+  // Neto = Bruto × (1 - 0.04×pctRend - 0.004)
+  const fricFactor = 1 - RETENCION_FIC * pctRendEsc - GMF_TASA;
+  const escBrutoNec = fricFactor > 0 ? escNecesidad / fricFactor : escNecesidad;
+  const escCapitalRet = simFIC > 0 ? escBrutoNec * (simFIC / valorFICesc) : 0;
+  const escRendRet = escBrutoNec - escCapitalRet;
+  const escRetencion = escRendRet * RETENCION_FIC;
+  const escGMF = escBrutoNec * GMF_TASA;
+  const escNetoFinal = escBrutoNec - escRetencion - escGMF;
+  const escRemanente = Math.max(0, valorFICesc - escBrutoNec);
+
+  setT('escBruto', fmt(escBrutoNec));
+  setT('escCapitalRet', fmt(escCapitalRet));
+  setT('escRendRet', '+'+fmt(escRendRet));
+  setT('escRetencion', '-'+fmt(escRetencion));
+  setT('escGMF', '-'+fmt(escGMF));
+  setT('escNetoFinal', fmt(escNetoFinal));
+  setT('escRemanente', fmt(escRemanente));
+
+  // KPIs friccionales
+  const retTotal = escRetencion + escGMF;
+  setT('kpiRetTotal', fmt(retTotal));
+  const friccionPct = escBrutoNec > 0 ? (retTotal / escBrutoNec) * 100 : 0;
+  setT('kpiFriccionPct', friccionPct.toFixed(2) + '%');
+  setT('kpiVsBono', '+'+fmt(retTotal) + ' costo extra');
+
+  // Veredicto financiero
+  const elVer = document.getElementById('escVeredicto');
+  if (elVer) {
+    if (valorFICesc < escNecesidad) {
+      elVer.style.background = '#fde8e7';
+      elVer.style.borderLeft = '4px solid #d93025';
+      elVer.innerHTML = '<strong>⚠️ FIC insuficiente:</strong> el valor proyectado del FIC a ' + escHorizonte + ' años (' + fmt(valorFICesc) + ') NO alcanza la necesidad neta (' + fmt(escNecesidad) + '). Aporta más al FIC, espera más años, o combina con otra fuente.';
+    } else if (friccionPct < 1) {
+      elVer.style.background = '#e7f6ee';
+      elVer.style.borderLeft = '4px solid #1aa260';
+      elVer.innerHTML = '<strong>✅ Fricción muy baja (' + friccionPct.toFixed(2) + '%):</strong> el rendimiento generado por el FIC es bajo (poco tiempo), así que la retención sobre rendimientos es mínima. Buen momento para retirar.';
+    } else if (friccionPct < 3) {
+      elVer.style.background = '#e7f6ee';
+      elVer.style.borderLeft = '4px solid #1aa260';
+      elVer.innerHTML = '<strong>✅ Fricción razonable (' + friccionPct.toFixed(2) + '%):</strong> de cada $100 que retiras, el Estado se queda con $' + (friccionPct).toFixed(2) + '. Es el costo de haber tenido el FIC produciendo rendimientos.';
+    } else {
+      elVer.style.background = '#fff8e1';
+      elVer.style.borderLeft = '4px solid #f29900';
+      elVer.innerHTML = '<strong>⚠️ Fricción alta (' + friccionPct.toFixed(2) + '%):</strong> el FIC ha generado muchos rendimientos. Considera retirar por partes (anual) para diluir el impacto, o esperar a declaración de renta donde puedes acreditar la retención.';
+    }
+  }
+
+  // Gráfico de descomposición
+  if (window._chartEscDecomp && typeof window._chartEscDecomp.destroy === 'function') window._chartEscDecomp.destroy();
+  window._chartEscDecomp = null;
+  const vED = visibleCanvas('chartEscDecomp');
+  if (vED) {
+    window._chartEscDecomp = new Chart(vED, {
+      type:'bar',
+      data:{
+        labels:['Retiro bruto FIC'],
+        datasets:[
+          {label:'Capital tuyo (sin retención)', data:[escCapitalRet], backgroundColor:'#1aa260', borderRadius:4},
+          {label:'Rendimiento neto a tu cuenta', data:[escRendRet - escRetencion], backgroundColor:'#019DF4', borderRadius:4},
+          {label:'(-) Retención fuente 4%', data:[escRetencion], backgroundColor:'#d93025', borderRadius:4},
+          {label:'(-) GMF 4×1000', data:[escGMF], backgroundColor:'#f29900', borderRadius:4},
+        ]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false, indexAxis:'y', animation:{duration:600},
+        scales:{x:{stacked:true, ticks:{callback:v=>fmtShort(v)}}, y:{stacked:true}},
+        plugins:{legend:{position:'bottom'}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmt(c.parsed.x)}}}
+      }
+    });
+  }
+
+  // Tabla comparativa de retención por vehículo
+  const tbodyRet = document.getElementById('tablaRetencionesBody');
+  if (tbodyRet) {
+    const vehiculosRet = [
+      {n:'🏛️ FIC institucional (sobre rendimientos)', tasa:'4%', base:'Solo rendimientos (no capital)', cuando:'Al momento del retiro'},
+      {n:'📜 CDT (sobre intereses)', tasa:'4%', base:'Intereses pagados al vencimiento', cuando:'Al vencimiento del CDT'},
+      {n:'🏦 Cuenta remunerada (Nu/Lulo)', tasa:'7%', base:'Rendimientos solo si > 7 UVT/mes (~$348K)', cuando:'Mes a mes si supera tope'},
+      {n:'💰 PV/AFC retirado < 10 años', tasa:'Tarifa salarial (10-35%)', base:'Capital + rendimientos', cuando:'Al retirar; pierdes beneficio fiscal'},
+      {n:'📈 ETF/acciones extranjeras', tasa:'15% ganancia ocasional', base:'Diferencia precio venta-compra (si > 1 año)', cuando:'Al vender'},
+      {n:'💵 Bono / liquidación directa', tasa:'0%', base:'No retención adicional (ya retenido)', cuando:'N/A'},
+    ];
+
+    tbodyRet.innerHTML = vehiculosRet.map(v => {
+      let retEst = 0, brutoNec = escNecesidad;
+      if (v.n.includes('FIC')) {
+        retEst = escRetencion + escGMF;
+        brutoNec = escBrutoNec;
+      } else if (v.n.includes('CDT')) {
+        // CDT 13.5% por 5 años: rendimientos = monto × ((1.135)^5 - 1)/(1.135)^5 ≈ 47% del valor final
+        const pctRendCDT = 0.47;
+        retEst = escNecesidad * pctRendCDT * 0.04 + escNecesidad * GMF_TASA;
+        brutoNec = escNecesidad / (1 - pctRendCDT*0.04 - GMF_TASA);
+      } else if (v.n.includes('Cuenta remunerada')) {
+        // Asume rendimientos mensuales > 7 UVT (caso 12% sobre $50M = $500K/mes > $348K)
+        const pctRendCR = 0.42;
+        retEst = escNecesidad * pctRendCR * 0.07 + escNecesidad * GMF_TASA;
+        brutoNec = escNecesidad / (1 - pctRendCR*0.07 - GMF_TASA);
+      } else if (v.n.includes('PV/AFC')) {
+        // Tarifa promedio 28% sobre TODO el retiro (capital + rendimientos) si < 10 años
+        retEst = escNecesidad * 0.28 + escNecesidad * GMF_TASA;
+        brutoNec = escNecesidad / (1 - 0.28 - GMF_TASA);
+      } else if (v.n.includes('ETF')) {
+        // 15% ganancia ocasional sobre rendimientos
+        const pctRendETF = 0.50;
+        retEst = escNecesidad * pctRendETF * 0.15 + escNecesidad * GMF_TASA;
+        brutoNec = escNecesidad / (1 - pctRendETF*0.15 - GMF_TASA);
+      } else { // Bono directo
+        retEst = escNecesidad * GMF_TASA;
+        brutoNec = escNecesidad / (1 - GMF_TASA);
+      }
+      return '<tr>'+
+        '<td>'+v.n+'</td>'+
+        '<td>'+v.tasa+'</td>'+
+        '<td style="font-size:.85em">'+v.base+'</td>'+
+        '<td class="num" style="color:#d93025">'+fmt(retEst)+'</td>'+
+        '<td class="num">'+fmt(brutoNec)+'</td>'+
+        '<td style="font-size:.85em">'+v.cuando+'</td>'+
+      '</tr>';
+    }).join('');
+  }
 
   if (chartComp) { chartComp.destroy(); chartComp = null; }
   const vComp = visibleCanvas('chartComp');
@@ -5016,16 +5280,18 @@ function recalc(){
       const rAnual = m * cfg.tasa;
       const v5  = m * Math.pow(1+cfg.tasa, 5);
       const v10 = m * Math.pow(1+cfg.tasa, 10);
-      const v20 = m * Math.pow(1+cfg.tasa, 20);
-      const vsCDT5 = v5 - m*Math.pow(1.135,5);
+      const ret5 = (v5 - m) * 0.04; // retención 4% sobre rendimientos
+      const ret10 = (v10 - m) * 0.04;
+      const neto5 = v5 - ret5;
+      const neto10 = v10 - ret10;
       return '<tr>'+
         '<td><strong>'+fmt(m)+'</strong></td>'+
         '<td class="num">'+fmt(rAnual)+'</td>'+
         '<td class="num">'+fmt(rAnual/12)+'</td>'+
         '<td class="num">'+fmt(v5)+'</td>'+
-        '<td class="num">'+fmt(v10)+'</td>'+
-        '<td class="num">'+fmt(v20)+'</td>'+
-        '<td class="num '+(vsCDT5>=0?'green':'')+'">'+(vsCDT5>=0?'+':'')+fmt(vsCDT5)+'</td>'+
+        '<td class="num" style="color:#d93025">-'+fmt(ret5)+'</td>'+
+        '<td class="num green">'+fmt(neto5)+'</td>'+
+        '<td class="num green">'+fmt(neto10)+'</td>'+
       '</tr>';
     }).join('');
   }
