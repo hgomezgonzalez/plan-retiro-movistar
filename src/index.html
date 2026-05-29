@@ -2266,6 +2266,13 @@
             <div class="v num" id="simIntv">—</div>
           </div>
           <hr class="soft" />
+          <div class="sim-row" style="background:#e8f1ff;padding:10px;border-radius:6px;border-left:3px solid #019DF4">
+            <label>🏛️ <strong>Aporte a FIC institucional</strong> (sin beneficio fiscal, pero genera rendimiento)</label>
+            <input type="range" id="simFIC" min="0" max="100000000" step="1000000" value="10000000" oninput="recalc()" />
+            <div class="v num" id="simFICv">—</div>
+            <p class="muted" style="font-size:.82em;margin-top:4px">Conectado con el simulador FIC detallado abajo. Usa perfil <strong>moderado (11% EA)</strong> por defecto.</p>
+          </div>
+          <hr class="soft" />
           <p class="muted">Aporte AFC+PV utilizado: <span class="num" id="usoAportes">—</span> de tope <span class="num" id="topeAportes">—</span></p>
           <div id="topeWarn"></div>
         </div>
@@ -2283,6 +2290,24 @@
             <tr><td>Retención ya practicada (estimada)</td><td class="num" id="retencion">—</td></tr>
             <tr><td><strong>Saldo a favor / a pagar</strong></td><td class="num"><strong id="saldo">—</strong></td></tr>
           </table>
+
+          <hr class="soft" />
+          <h3 style="margin-top:12px;color:#019DF4">🏛️ Impacto FIC institucional</h3>
+          <table>
+            <tr><td>Monto aportado al FIC</td><td class="num" id="ficMontoSim">—</td></tr>
+            <tr><td>Rendimiento financiero AÑO 1 (11% EA neto)</td><td class="num green" id="ficRendSim">—</td></tr>
+            <tr><td>Equivalente mensual</td><td class="num green" id="ficRendMesSim">—</td></tr>
+            <tr><td>Ahorro fiscal directo</td><td class="num">$0 <span class="muted" style="font-size:.85em">(FIC no es exento)</span></td></tr>
+            <tr style="background:#e7f6ee"><td><strong>Valor del FIC a 5 años (compuesto)</strong></td><td class="num green"><strong id="fic5Sim">—</strong></td></tr>
+            <tr style="background:#e7f6ee"><td><strong>Valor del FIC a 10 años (compuesto)</strong></td><td class="num green"><strong id="fic10Sim">—</strong></td></tr>
+          </table>
+
+          <hr class="soft" />
+          <div style="background:linear-gradient(135deg,#019DF4,#0B2739);color:#fff;padding:14px;border-radius:8px;margin-top:10px;text-align:center">
+            <div style="font-size:.85em;letter-spacing:.5px;font-weight:700;opacity:.9">🎯 BENEFICIO TOTAL AÑO 1 (ahorro fiscal PV/AFC + rendimiento FIC)</div>
+            <div class="num" id="beneficioTotal" style="font-size:2em;font-weight:800;margin-top:6px">—</div>
+            <div style="font-size:.85em;opacity:.85;margin-top:4px"><span id="beneficioBreakdown">—</span></div>
+          </div>
         </div>
       </div>
 
@@ -4725,11 +4750,18 @@ function recalc(){
   const simAFC = +document.getElementById('simAFC').value;
   const simMP = +document.getElementById('simMP').value;
   const simInt = +document.getElementById('simInt').value;
+  const simFIC = +(document.getElementById('simFIC')?.value || 0);
 
   document.getElementById('simPVv').textContent = fmt(simPV);
   document.getElementById('simAFCv').textContent = fmt(simAFC);
   document.getElementById('simMPv').textContent = fmt(simMP);
   document.getElementById('simIntv').textContent = fmt(simInt);
+  const elSimFICv = document.getElementById('simFICv');
+  if (elSimFICv) elSimFICv.textContent = fmt(simFIC);
+
+  // Sincroniza con el simulador FIC dedicado abajo (espejo del valor)
+  const elFicMontoMain = document.getElementById('ficMonto');
+  if (elFicMontoMain && +elFicMontoMain.value !== simFIC) elFicMontoMain.value = simFIC;
 
   const tope = topeAportes();
   const usoAportes = simPV + simAFC;
@@ -4778,6 +4810,27 @@ function recalc(){
   const impSinPlan = impuestoRenta(ingNetoSinPlan);
   const ahorroFiscal = Math.max(0, impSinPlan - impuesto);
   document.getElementById('kpiAhorro').textContent = fmt(ahorroFiscal);
+
+  // ===== Impacto FIC institucional en el bloque "Resultado fiscal" =====
+  const FIC_TASA_MAIN = 0.11; // moderado por defecto, neto de comisión
+  const ficRendAnio1 = simFIC * FIC_TASA_MAIN;
+  const fic5y = simFIC * Math.pow(1 + FIC_TASA_MAIN, 5);
+  const fic10y = simFIC * Math.pow(1 + FIC_TASA_MAIN, 10);
+  const setT = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setT('ficMontoSim', fmt(simFIC));
+  setT('ficRendSim', '+'+fmt(ficRendAnio1));
+  setT('ficRendMesSim', '+'+fmt(ficRendAnio1/12));
+  setT('fic5Sim', fmt(fic5y));
+  setT('fic10Sim', fmt(fic10y));
+
+  // KPI integrado: beneficio total año 1 (ahorro fiscal + rendimiento FIC)
+  const beneficioTotalAno1 = ahorroFiscal + ficRendAnio1;
+  setT('beneficioTotal', fmt(beneficioTotalAno1));
+  setT('beneficioBreakdown',
+    'Ahorro fiscal PV/AFC: ' + fmt(ahorroFiscal) +
+    ' + Rendimiento FIC: ' + fmt(ficRendAnio1) +
+    (simFIC > 0 ? ' (sobre $'+(simFIC/1e6).toFixed(1)+'M aportados)' : '')
+  );
 
   if (chartComp) { chartComp.destroy(); chartComp = null; }
   const vComp = visibleCanvas('chartComp');
