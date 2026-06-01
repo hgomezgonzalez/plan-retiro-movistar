@@ -75,6 +75,13 @@
   table{width:100%;border-collapse:collapse;font-size:.88em}
   th,td{padding:8px 9px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
   th{background:var(--mv-light);font-weight:600;color:var(--mv-dark)}
+  .scorebar{display:flex;align-items:center;gap:10px;margin:7px 0}
+  .scorelabel{flex:0 0 150px;font-size:13px;color:var(--gray)}
+  .scoretrack{flex:1;background:#eef1f5;border-radius:8px;overflow:hidden;height:24px}
+  .scorefill{height:100%;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:12px;font-weight:600;white-space:nowrap;border-radius:8px;min-width:fit-content}
+  .scorefill.g{background:var(--green)}
+  .scorefill.a{background:var(--amber)}
+  .scorefill.r{background:var(--red)}
   tr:hover td{background:#fafcfe}
   .badge{display:inline-block;padding:3px 8px;border-radius:12px;font-size:.72em;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
   .badge.g{background:#e7f6ee;color:var(--green)}
@@ -278,6 +285,7 @@
       <li data-i="16">Cronograma 90 días</li>
       <li data-i="17">Riesgos</li>
       <li data-i="18">Checklist final</li>
+      <li data-i="19">🏢 Crear empresa ROHU</li>
     </ol>
     <div style="padding:14px 18px;border-top:1px solid #1f3a52;margin-top:10px">
       <button class="btn ghost" style="width:100%;color:#fff;border-color:#fff" onclick="window.print()">🖨️ Imprimir / PDF</button>
@@ -4452,6 +4460,251 @@ Email: hgomezgonzalez@gmail.com</textarea>
       </div>
     </section>
 
+    <section class="slide" data-slide="19">
+      <div class="slide-header"><h1>🏢 Crear empresa ROHU SOLUTIONS en Colombia</h1>
+        <div class="pager"><button class="btn ghost" onclick="prev()">←</button><button class="btn ghost" onclick="goto(0)">Inicio ⤴</button></div>
+      </div>
+
+      <p class="muted">Cómo formalizar ROHU como empresa de soluciones tecnológicas para facturar de forma profesional, optimizar impuestos y habilitarte para <strong>licitar proyectos con el Estado y grandes clientes</strong>. Comparativo de estructuras (pros y contras) + pasos de constitución + ruta para contratar con entidades públicas.</p>
+
+      <!-- ===== Bloque 1: recomendación por etapas ===== -->
+      <div class="alert info" style="margin-bottom:14px">
+        <strong>👉 Tu caso: prestación de servicios, sin capital para invertir.</strong> Lo más inteligente es una <strong>ruta por etapas</strong>: empezar HOY como Persona Natural + Régimen Simple (costo fijo ≈ $0) y migrar a S.A.S. solo cuando haya flujo o una licitación que exija persona jurídica.
+      </div>
+      <div class="grid cols-3">
+        <div class="card kpi green">
+          <div class="label">Empieza HOY (sin inversión)</div>
+          <div class="value">Persona Natural + Simple</div>
+          <div class="sub">Facturas servicios de inmediato · costo fijo ≈ $0/mes</div>
+        </div>
+        <div class="card kpi amber">
+          <div class="label">Luego, para escalar / licitar</div>
+          <div class="value">S.A.S. + Simple</div>
+          <div class="sub">Protege tu patrimonio + imagen corporativa · ≈ $2–5M/año</div>
+        </div>
+        <div class="card kpi">
+          <div class="label">Tiempo de constitución S.A.S.</div>
+          <div class="value">1 – 3 días</div>
+          <div class="sub">100% en línea vía Cámara de Comercio (VUE) cuando decidas dar el salto</div>
+        </div>
+      </div>
+
+      <!-- ===== Bloque 2: comparativo de estructuras ===== -->
+      <h2 style="margin:22px 0 6px">Comparativo de estructuras jurídicas</h2>
+      <p class="muted">Sin capital y prestando servicios, lo barato y ágil gana al inicio (Persona Natural + Simple). La <strong>S.A.S.</strong> aporta protección de patrimonio e imagen para licitar, pero a cambio de un costo recurrente — vale la pena cuando ya hay flujo.</p>
+
+      <div class="grid cols-3">
+
+        <div class="card" style="border:2px solid var(--green)">
+          <h3>👤 Persona Natural + RUT <span class="badge g">Empieza aquí</span></h3>
+          <p class="muted">Facturas a tu nombre como independiente, sin crear sociedad. Ideal para arrancar servicios sin invertir.</p>
+          <p class="pro">✅ <strong>Costo fijo ≈ $0:</strong> RUT y facturación electrónica DIAN gratis; sin matrícula mercantil por ser servicios profesionales.</p>
+          <p class="pro">✅ Arranque inmediato; puedes manejar la contabilidad tú mismo al inicio.</p>
+          <p class="pro">✅ Con Régimen Simple, impuestos bajos y un solo reporte.</p>
+          <p class="con">❌ <strong>Responsabilidad ilimitada:</strong> respondes con tu patrimonio personal.</p>
+          <p class="con">❌ Imagen débil para licitar; muchas entidades exigen persona jurídica.</p>
+        </div>
+
+        <div class="card">
+          <h3>🏢 S.A.S. <span class="badge a">Para escalar</span></h3>
+          <p class="muted">Sociedad por Acciones Simplificada. La figura más usada por empresas de tecnología cuando ya hay flujo.</p>
+          <p class="pro">✅ Responsabilidad limitada al capital aportado (protege tu patrimonio personal).</p>
+          <p class="pro">✅ Un solo accionista (puedes ser tú); sin junta directiva obligatoria.</p>
+          <p class="pro">✅ Imagen corporativa: requisito de facto para licitar y contratar con grandes clientes.</p>
+          <p class="pro">✅ Fácil de escalar (admitir socios/inversión) y de inscribir en el RUP.</p>
+          <p class="con">❌ <strong>Contador obligatorio</strong> + declaraciones formales y renovación anual de matrícula → ≈ $2–5M/año.</p>
+        </div>
+
+        <div class="card">
+          <h3>🧾 Régimen Simple (RST)</h3>
+          <p class="muted"><em>No es una estructura aparte:</em> es un régimen tributario que se monta <strong>sobre</strong> la S.A.S. o la persona natural.</p>
+          <p class="pro">✅ <strong>Menores pagos y reportes ante la DIAN:</strong> tarifa unificada que reemplaza renta (y consolida varios impuestos).</p>
+          <p class="pro">✅ Una sola declaración anual + anticipos bimestrales; menos carga administrativa.</p>
+          <p class="pro">✅ No aplica retención en la fuente sobre tus ingresos por renta.</p>
+          <p class="con">❌ Tiene topes de ingresos y actividades excluidas; validar elegibilidad con contador.</p>
+          <p class="con">❌ Hay que inscribirse a tiempo (ventana definida por la DIAN cada año).</p>
+        </div>
+
+      </div>
+
+      <!-- ===== Scorecard visual: ¿por qué una u otra? ===== -->
+      <h2 style="margin:22px 0 6px">¿Por qué una u otra? (comparación visual)</h2>
+      <p class="muted">Barra más larga y verde = mejor. Persona Natural gana en costo y agilidad; S.A.S. gana en protección e imagen para licitar.</p>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>👤 Persona Natural + Simple</h3>
+          <div class="scorebar"><span class="scorelabel">Costo para arrancar</span><div class="scoretrack"><div class="scorefill g" style="width:98%">Excelente ($0)</div></div></div>
+          <div class="scorebar"><span class="scorelabel">Costo fijo mensual</span><div class="scoretrack"><div class="scorefill g" style="width:95%">Casi nulo</div></div></div>
+          <div class="scorebar"><span class="scorelabel">Facilidad de manejo</span><div class="scoretrack"><div class="scorefill g" style="width:90%">Muy fácil</div></div></div>
+          <div class="scorebar"><span class="scorelabel">Protección patrimonio</span><div class="scoretrack"><div class="scorefill r" style="width:25%">Ilimitada ⚠️</div></div></div>
+          <div class="scorebar"><span class="scorelabel">Imagen para licitar</span><div class="scoretrack"><div class="scorefill a" style="width:40%">Limitada</div></div></div>
+        </div>
+        <div class="card">
+          <h3>🏢 S.A.S. + Simple</h3>
+          <div class="scorebar"><span class="scorelabel">Costo para arrancar</span><div class="scoretrack"><div class="scorefill a" style="width:45%">$400K–$1M</div></div></div>
+          <div class="scorebar"><span class="scorelabel">Costo fijo mensual</span><div class="scoretrack"><div class="scorefill r" style="width:35%">Contador obligatorio</div></div></div>
+          <div class="scorebar"><span class="scorelabel">Facilidad de manejo</span><div class="scoretrack"><div class="scorefill a" style="width:55%">Requiere contador</div></div></div>
+          <div class="scorebar"><span class="scorelabel">Protección patrimonio</span><div class="scoretrack"><div class="scorefill g" style="width:95%">Limitada ✅</div></div></div>
+          <div class="scorebar"><span class="scorelabel">Imagen para licitar</span><div class="scoretrack"><div class="scorefill g" style="width:95%">Fuerte ✅</div></div></div>
+        </div>
+      </div>
+
+      <!-- ===== Costos reales: mensual y anual ===== -->
+      <h2 style="margin:22px 0 6px">Costos reales: mensual y anual (aprox. 2026)</h2>
+      <p class="muted">Cifras estimadas para prestación de servicios. La gran diferencia es el <strong>contador obligatorio</strong> de la S.A.S.</p>
+      <div class="grid cols-2">
+        <div class="card" style="border:2px solid var(--green)">
+          <h3>👤 Persona Natural + Simple <span class="badge g">≈ $0/mes fijo</span></h3>
+          <table>
+            <tr><th>Concepto</th><th class="num">Mensual</th><th class="num">Anual</th></tr>
+            <tr><td>Inscripción RUT (DIAN)</td><td class="num">$0</td><td class="num">$0</td></tr>
+            <tr><td>Facturación electrónica DIAN</td><td class="num">$0</td><td class="num">$0</td></tr>
+            <tr><td>Matrícula mercantil (servicios)</td><td class="num">$0</td><td class="num">$0</td></tr>
+            <tr><td>Contador (opcional al inicio)</td><td class="num">$0–150K</td><td class="num">$0–1.8M</td></tr>
+            <tr style="background:#e7f6ee"><td><strong>Costo fijo para existir</strong></td><td class="num"><strong>≈ $0</strong></td><td class="num"><strong>≈ $0</strong></td></tr>
+            <tr><td>Impuesto SIMPLE</td><td colspan="2">% sobre ingresos (anticipos bimestrales) — bajo si los ingresos son bajos</td></tr>
+          </table>
+          <p class="muted" style="margin-top:8px">Aparte (no es costo de empresa, pero es real): seguridad social como independiente sobre IBC = 40% de tus ingresos.</p>
+        </div>
+        <div class="card">
+          <h3>🏢 S.A.S. + Simple <span class="badge a">≈ $2–5M/año</span></h3>
+          <table>
+            <tr><th>Concepto</th><th class="num">Mensual</th><th class="num">Anual</th></tr>
+            <tr><td>Constitución (una sola vez)</td><td class="num">—</td><td class="num">$400K–1M</td></tr>
+            <tr><td>Renovación matrícula mercantil</td><td class="num">—</td><td class="num">$150–500K</td></tr>
+            <tr><td><strong>Contador (obligatorio)</strong></td><td class="num">$150–400K</td><td class="num">$1.8–4.8M</td></tr>
+            <tr><td>Facturación electrónica + varios</td><td class="num">$0–50K</td><td class="num">$0–600K</td></tr>
+            <tr style="background:#fff4e0"><td><strong>Costo recurrente</strong></td><td class="num"><strong>$150–450K</strong></td><td class="num"><strong>≈ $2–5M</strong></td></tr>
+          </table>
+          <p class="muted" style="margin-top:8px">El grueso del costo es el contador, indispensable por las declaraciones formales.</p>
+        </div>
+      </div>
+
+      <!-- Barra comparativa costo anual fijo -->
+      <div class="card" style="margin-top:14px">
+        <h3>Costo anual fijo solo por existir</h3>
+        <div class="scorebar"><span class="scorelabel">Persona Natural + Simple</span><div class="scoretrack"><div class="scorefill g" style="width:3%">≈ $0</div></div></div>
+        <div class="scorebar"><span class="scorelabel">S.A.S. + Simple</span><div class="scoretrack"><div class="scorefill r" style="width:80%">≈ $2–5M / año</div></div></div>
+        <p class="muted" style="margin-top:8px">Por eso, sin capital y prestando servicios, conviene empezar como Persona Natural y dar el salto a S.A.S. cuando los ingresos cubran de sobra ese costo o una licitación lo exija.</p>
+      </div>
+
+      <!-- ===== Tabla comparativa tributaria ===== -->
+      <div class="card" style="margin-top:14px">
+        <h3>Carga tributaria y reportes — ¿cuál genera menos?</h3>
+        <table>
+          <tr>
+            <th>Figura</th><th>Responsabilidad</th><th>Impuestos</th><th>Reportes DIAN</th><th>Apto para licitar</th>
+          </tr>
+          <tr style="background:#e7f6ee">
+            <td><strong>S.A.S. en Régimen Simple</strong></td>
+            <td><span class="badge g">Limitada</span></td>
+            <td>Tarifa SIMPLE unificada</td>
+            <td><span class="badge g">Mínimos</span> (1 anual + anticipos)</td>
+            <td><span class="badge g">Sí ✓✓</span></td>
+          </tr>
+          <tr>
+            <td>S.A.S. en régimen ordinario</td>
+            <td><span class="badge g">Limitada</span></td>
+            <td>Renta 35% + IVA + ICA</td>
+            <td><span class="badge a">Altos</span></td>
+            <td><span class="badge g">Sí ✓✓</span></td>
+          </tr>
+          <tr>
+            <td>Persona Natural en Régimen Simple</td>
+            <td><span class="badge r">Ilimitada</span></td>
+            <td>Tarifa SIMPLE unificada</td>
+            <td><span class="badge g">Mínimos</span></td>
+            <td><span class="badge a">Limitado</span></td>
+          </tr>
+          <tr>
+            <td>Persona Natural ordinaria</td>
+            <td><span class="badge r">Ilimitada</span></td>
+            <td>Renta por cédulas + IVA</td>
+            <td><span class="badge a">Medios</span></td>
+            <td><span class="badge a">Limitado</span></td>
+          </tr>
+          <tr>
+            <td>E.U. / Ltda.</td>
+            <td><span class="badge g">Limitada</span></td>
+            <td>Similar a S.A.S. ordinaria</td>
+            <td><span class="badge a">Altos</span></td>
+            <td><span class="badge g">Sí ✓</span></td>
+          </tr>
+          <tr>
+            <td>ESAL (sin ánimo de lucro)</td>
+            <td><span class="badge g">Limitada</span></td>
+            <td>Régimen especial (no reparte utilidades)</td>
+            <td><span class="badge a">Altos</span></td>
+            <td><span class="badge a">Casos específicos</span></td>
+          </tr>
+        </table>
+        <p class="muted" style="margin-top:8px">👉 La combinación con <strong>menor pago de impuestos y menos reportes</strong>, manteniendo protección de patrimonio e imagen para licitar, es <strong>S.A.S. inscrita en el Régimen Simple de Tributación</strong>.</p>
+      </div>
+
+      <!-- ===== Bloque 3: pasos de constitución ===== -->
+      <h2 style="margin:22px 0 6px">Pasos para constituir la S.A.S. tecnológica</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>📋 Constitución y formalización</h3>
+          <div class="timeline">
+            <div class="tl-step"><div class="dot"></div><strong>1. Nombre y actividad</strong><small>Verificar homonimia en RUES y elegir códigos CIIU tecnológicos: 6201 (desarrollo de software), 6202 (consultoría informática), 6209, 6311.</small></div>
+            <div class="tl-step"><div class="dot"></div><strong>2. Documento de constitución</strong><small>Estatutos de la S.A.S.: accionista(s), capital suscrito, objeto social "soluciones tecnológicas", representante legal.</small></div>
+            <div class="tl-step"><div class="dot"></div><strong>3. Cámara de Comercio</strong><small>Registro mercantil → matrícula + impuesto de registro (0,7% del capital). Se obtiene el NIT provisional.</small></div>
+            <div class="tl-step"><div class="dot"></div><strong>4. RUT / DIAN</strong><small>PreRUT → RUT definitivo. Definir responsabilidades (Régimen Simple, IVA si aplica, ICA) y habilitar facturación electrónica.</small></div>
+            <div class="tl-step warn"><div class="dot"></div><strong>5. Operación</strong><small>Cuenta bancaria empresarial, facturación electrónica DIAN, contador y afiliación a seguridad social del representante legal.</small></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🏛️ Habilitarte para licitar (contratar con el Estado)</h3>
+          <div class="timeline">
+            <div class="tl-step"><div class="dot"></div><strong>1. RUP en Cámara de Comercio</strong><small>Registro Único de Proponentes: clasifica por códigos UNSPSC y acredita experiencia, capacidad financiera y organizacional.</small></div>
+            <div class="tl-step alert"><div class="dot"></div><strong>2. Renovación anual del RUP</strong><small>Antes del 5.º día hábil de abril de cada año, o pierde vigencia y debes reinscribirte.</small></div>
+            <div class="tl-step"><div class="dot"></div><strong>3. Registro en SECOP II</strong><small>Plataforma de Colombia Compra Eficiente: crear la empresa como proveedor, configurar usuarios y enviar ofertas electrónicas.</small></div>
+            <div class="tl-step"><div class="dot"></div><strong>4. Preparar documentos habilitantes</strong><small>Estados financieros, certificaciones de experiencia, pólizas/garantías, paz y salvos de parafiscales y seguridad social.</small></div>
+            <div class="tl-step"><div class="dot"></div><strong>5. Buscar oportunidades</strong><small>Monitorear procesos en SECOP II y plataformas privadas; postular cuando cumplas los requisitos del pliego.</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Bloque 4: requisitos habilitantes ===== -->
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card">
+          <h3>🔑 Requisitos habilitantes (Ley 80 / contratación estatal)</h3>
+          <table>
+            <tr><td>Capacidad jurídica</td><td>Empresa legalmente constituida y vigente (S.A.S.)</td></tr>
+            <tr><td>Experiencia</td><td>Contratos previos certificados en códigos UNSPSC del RUP</td></tr>
+            <tr><td>Capacidad financiera</td><td>Indicadores de liquidez y endeudamiento (estados financieros)</td></tr>
+            <tr><td>Capacidad organizacional</td><td>Rentabilidad del patrimonio y del activo</td></tr>
+          </table>
+          <p class="muted" style="margin-top:8px">Sin experiencia inicial: empieza con clientes privados / órdenes de compra pequeñas, o postula a procesos de mínima cuantía y mype para construir el RUP.</p>
+        </div>
+
+        <div class="card">
+          <h3>💡 Estrategia para ROHU</h3>
+          <p class="pro">✅ Empezar <strong>hoy</strong> como Persona Natural + Régimen Simple (costo ≈ $0) y facturar servicios de inmediato.</p>
+          <p class="pro">✅ Facturar primeros clientes privados (rohu-marketing-web, PayControl) para generar experiencia certificable.</p>
+          <p class="pro">✅ Constituir S.A.S. + inscribir el RUP cuando aparezca flujo estable o un prospecto de licitación que lo exija.</p>
+          <p class="con">❌ No crear S.A.S. antes de tener flujo real: cada año hay renovación de matrícula + costo de contador (≈ $2–5M).</p>
+          <p class="con">❌ No olvidar la renovación anual del RUP (abril) ni los anticipos bimestrales del SIMPLE.</p>
+        </div>
+      </div>
+
+      <h2 style="margin:22px 0 6px">Ruta recomendada por etapas</h2>
+      <div class="timeline">
+        <div class="tl-step"><div class="dot"></div><strong>Etapa 1 — HOY, costo ≈ $0</strong><small>Persona Natural + RUT + Régimen Simple. Habilitar facturación electrónica DIAN y empezar a facturar servicios de inmediato, sin invertir capital.</small></div>
+        <div class="tl-step warn"><div class="dot"></div><strong>Etapa 2 — cuando haya flujo o una licitación que exija empresa</strong><small>Constituir S.A.S. (manteniendo Régimen Simple) para proteger tu patrimonio y dar imagen corporativa. Vincular contador.</small></div>
+        <div class="tl-step alert"><div class="dot"></div><strong>Etapa 3 — para contratar con el Estado</strong><small>Inscribir el RUP y registrarse en SECOP II cuando exista un prospecto concreto de licitación pública.</small></div>
+      </div>
+      <div class="alert success" style="margin-top:14px">
+        <strong>En resumen:</strong> sin capital y prestando servicios, <strong>empieza como Persona Natural + Régimen Simple ($0)</strong> y da el salto a <strong>S.A.S.</strong> solo cuando los ingresos cubran de sobra su costo anual o una licitación lo exija.
+      </div>
+
+      <div class="alert warn" style="margin-top:10px">
+        <strong>⚠️ Aviso:</strong> Todas las cifras son aproximadas para 2026 y dependen del capital suscrito, la ciudad y la UVB del registro mercantil ($12.110 en 2026). Valida costos exactos con la Cámara de Comercio local y la elegibilidad del Régimen Simple con un contador antes de constituir.
+      </div>
+    </section>
+
   </main>
 </div>
 
@@ -4616,7 +4869,7 @@ function recalcNuevoIngreso(){
 // Init al cargar
 setTimeout(() => { try { recalcNuevoIngreso(); } catch(e){} }, 300);
 function goto(i){
-  state.current = Math.max(0, Math.min(18, i));
+  state.current = Math.max(0, Math.min(19, i));
   document.querySelectorAll('.slide').forEach((el,idx)=>el.classList.toggle('active', idx===state.current));
   document.querySelectorAll('aside.nav li').forEach((el,idx)=>el.classList.toggle('active', idx===state.current));
   window.scrollTo({top:0, behavior:'smooth'});
