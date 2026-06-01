@@ -302,7 +302,7 @@
       <div class="params-body" id="paramsBody">
         <p class="params-hint">💡 <strong>Cualquier cambio aquí recalcula TODO el plan en vivo:</strong> KPIs, simulador fiscal, distribución, runway, salarios necesarios, eficiencias post-retiro. Mira el ✨ que aparece junto a cada KPI actualizado.</p>
         <div class="params-grid">
-          <label class="param-item"><span class="param-label">UVT 2026</span><input id="uvt" type="number" value="49799" min="40000" max="60000" /><span class="param-hint">Tope tributario</span></label>
+          <label class="param-item"><span class="param-label">UVT 2026</span><input id="uvt" type="number" value="52374" min="40000" max="60000" /><span class="param-hint">Tope tributario (Res. DIAN 000238/2025)</span></label>
           <label class="param-item"><span class="param-label">💼 Salario mensual</span><input id="salario" type="number" value="13514970" /><span class="param-hint">Movistar último</span></label>
           <label class="param-item"><span class="param-label">💰 Bonificación</span><input id="bono" type="number" value="159026147" /><span class="param-hint">Retiro pagado</span></label>
           <label class="param-item"><span class="param-label">📅 Meses 2026</span><input id="meses" type="number" value="7" min="1" max="12" /><span class="param-hint">ene-jul</span></label>
@@ -4864,6 +4864,152 @@ Email: hgomezgonzalez@gmail.com</textarea>
       <div class="alert info" style="margin-top:14px">
         <strong>💡 Orden recomendado para ROHU:</strong> (1) RUT + Régimen Simple <strong>esta semana</strong> ($0) → empezar a facturar. (2) Constituir S.A.S. cuando factures de forma estable (≈ $200K una vez + contador). (3) RUP + SECOP II solo cuando aparezca un proceso público concreto (≈ $831K/año de renovación).
       </div>
+
+      <!-- ===================================================================== -->
+      <!-- ===== SIMULADOR TRIBUTARIO DE EMPRESA (a partir de ingresos) ========= -->
+      <!-- ===================================================================== -->
+      <h2 style="margin:30px 0 6px">🧮 Simulador tributario: ¿cuánto pagarías según tus ingresos?</h2>
+      <p class="muted">Mueve el ingreso mensual y compara <strong>en vivo</strong> las 3 figuras para servicios tecnológicos (CIIU 6201 desarrollo de software / 6202 consultoría). El cálculo usa la UVT configurada arriba (<span class="num" id="empUvtLbl">$52.374</span>) y las tarifas del <strong>Régimen Simple — Grupo 3</strong> (servicios con componente intelectual).</p>
+
+      <!-- (a) Controles -->
+      <div class="card" style="border:2px solid var(--green)">
+        <h3>🎚️ Tus ingresos por servicios</h3>
+        <div class="sim-row">
+          <label>Ingreso mensual promedio (facturado)</label>
+          <input type="range" id="simEmpIngresoMes" min="1000000" max="40000000" step="500000" value="6000000" oninput="recalcEmpresa()" />
+          <div class="v num" id="simEmpIngresoMesV">—</div>
+        </div>
+        <p class="muted" style="margin:-4px 0 10px">≡ Ingreso bruto anual estimado: <strong class="num" id="simEmpIngresoAnoV">—</strong> (mensual ×12)</p>
+        <div class="sim-row">
+          <label>Costos / gastos deducibles (% — solo afecta régimen ordinario)</label>
+          <input type="range" id="simEmpCostos" min="0" max="60" step="5" value="15" oninput="recalcEmpresa()" />
+          <div class="v num" id="simEmpCostosV">—</div>
+        </div>
+        <p class="muted" style="margin:-4px 0 10px;font-size:.85em">El <strong>Régimen Simple tributa sobre el ingreso bruto</strong> (no resta costos); este % solo reduce la base del régimen ordinario.</p>
+        <label class="param-item" style="display:inline-flex;align-items:center;gap:8px;cursor:pointer">
+          <input type="checkbox" id="simEmpIVA" checked onchange="recalcEmpresa()" />
+          <span>Mi servicio está <strong>gravado con IVA 19 %</strong> (consultoría informática). Lo cobras y trasladas a la DIAN — <em>no es tu costo</em>.</span>
+        </label>
+        <p class="muted" style="margin-top:10px;font-size:.85em">Seguridad social = 28,5 % (salud 12,5 % + pensión 16 %) sobre un IBC del 40 % del ingreso, igual en las 3 figuras. Para IBC ≥ 4 SMMLV se suma el <strong>Fondo de Solidaridad Pensional</strong> (1 %–2 %), no incluido aquí.</p>
+      </div>
+
+      <!-- (b) Tres tarjetas comparativas -->
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card kpi green" id="cardPNSimple" style="border:2px solid var(--green)">
+          <div class="label">👤 Persona Natural + Simple <span class="badge g">✅ Para empezar</span></div>
+          <div class="value" id="pnsBolsillo">—</div>
+          <div class="sub">te queda al año (después de impuesto + seguridad social)</div>
+          <table style="margin-top:10px">
+            <tr><td>Ingreso bruto anual</td><td class="num" id="pnsIngreso">—</td></tr>
+            <tr><td>Impuesto SIMPLE (<span id="pnsTarifa">—</span>)</td><td class="num" id="pnsImpuesto" style="color:#d93025">—</td></tr>
+            <tr><td>IVA a trasladar (info)</td><td class="num" id="pnsIVA">—</td></tr>
+            <tr><td>Seguridad social</td><td class="num" id="pnsSS" style="color:#d93025">—</td></tr>
+            <tr><td>Costo estructura</td><td class="num green">$0</td></tr>
+            <tr style="background:#e7f6ee"><td><strong>Tasa efectiva (impuesto)</strong></td><td class="num"><strong id="pnsTasaEf">—</strong></td></tr>
+          </table>
+        </div>
+        <div class="card kpi" id="cardSASSimple">
+          <div class="label">🏢 S.A.S. + Simple <span class="badge a">Protege patrimonio</span></div>
+          <div class="value" id="sasBolsillo">—</div>
+          <div class="sub">te queda al año (resta también el contador)</div>
+          <table style="margin-top:10px">
+            <tr><td>Ingreso bruto anual</td><td class="num" id="sasIngreso">—</td></tr>
+            <tr><td>Impuesto SIMPLE (<span id="sasTarifa">—</span>)</td><td class="num" id="sasImpuesto" style="color:#d93025">—</td></tr>
+            <tr><td>IVA a trasladar (info)</td><td class="num" id="sasIVA">—</td></tr>
+            <tr><td>Seguridad social (rep. legal)</td><td class="num" id="sasSS" style="color:#d93025">—</td></tr>
+            <tr><td>Costo estructura (contador)</td><td class="num" id="sasEstructura" style="color:#d93025">—</td></tr>
+            <tr style="background:#fff4e0"><td><strong>Tasa efectiva (impuesto)</strong></td><td class="num"><strong id="sasTasaEf">—</strong></td></tr>
+          </table>
+        </div>
+        <div class="card kpi" id="cardPNOrd">
+          <div class="label">👤 Persona Natural ordinaria <span class="badge r">Más carga</span></div>
+          <div class="value" id="ordBolsillo">—</div>
+          <div class="sub">te queda al año (renta + retención + IVA bimestral)</div>
+          <table style="margin-top:10px">
+            <tr><td>Ingreso bruto anual</td><td class="num" id="ordIngreso">—</td></tr>
+            <tr><td>(-) Costos + 25% renta exenta</td><td class="num" id="ordDeduc">—</td></tr>
+            <tr><td>Impuesto de renta</td><td class="num" id="ordImpuesto" style="color:#d93025">—</td></tr>
+            <tr><td>ICA Bogotá software 9,66×1000</td><td class="num" id="ordICA" style="color:#d93025">—</td></tr>
+            <tr><td>Retención fuente 11% (anticipo)</td><td class="num" id="ordRetencion">—</td></tr>
+            <tr><td>IVA a trasladar (info)</td><td class="num" id="ordIVA">—</td></tr>
+            <tr><td>Seguridad social</td><td class="num" id="ordSS" style="color:#d93025">—</td></tr>
+            <tr style="background:#fde8e7"><td><strong>Tasa efectiva (impuesto)</strong></td><td class="num"><strong id="ordTasaEf">—</strong></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- (c)+(d) Gráfico comparativo + barras de tasa efectiva -->
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card">
+          <h3>📊 Carga total por figura (impuesto + estructura)</h3>
+          <div class="chart-wrap"><canvas id="chartEmpComp"></canvas></div>
+          <p class="muted">Barra más corta = menos te cuesta operar al año. La seguridad social es igual en las tres, por eso no entra en la comparación.</p>
+        </div>
+        <div class="card">
+          <h3>🎯 Tasa efectiva de impuesto (sobre ingreso bruto)</h3>
+          <div class="scorebar"><span class="scorelabel">PN + Simple</span><div class="scoretrack"><div class="scorefill g" id="barPNS" style="width:6%">—</div></div></div>
+          <div class="scorebar"><span class="scorelabel">S.A.S. + Simple</span><div class="scoretrack"><div class="scorefill a" id="barSAS" style="width:6%">—</div></div></div>
+          <div class="scorebar"><span class="scorelabel">PN ordinaria</span><div class="scoretrack"><div class="scorefill r" id="barORD" style="width:6%">—</div></div></div>
+          <p class="muted" style="margin-top:8px">Menor y más verde = mejor. La diferencia entre las dos figuras Simple es solo el costo del contador de la S.A.S.</p>
+        </div>
+      </div>
+
+      <!-- Conclusión dinámica honesta -->
+      <div class="alert info" id="empConclusion" style="margin-top:14px">—</div>
+
+      <!-- (e) ¿Cómo le cobras al cliente? -->
+      <h2 style="margin:26px 0 6px">🧾 ¿Cómo le cobras a tu cliente/proveedor?</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Cuenta de cobro vs Factura electrónica</h3>
+          <table>
+            <tr><th></th><th>Cuenta de cobro</th><th>Factura electrónica DIAN</th></tr>
+            <tr><td>¿Cuándo aplica?</td><td>Solo si <strong>NO</strong> eres responsable de IVA y <strong>NO</strong> estás obligado a facturar</td><td><span class="badge g">Tu caso ROHU</span> al inscribir RUT con actividad económica y/o ser responsable de IVA</td></tr>
+            <tr><td>Validez DIAN</td><td><span class="badge a">Limitada</span> (documento informal)</td><td><span class="badge g">Plena</span> (documento fiscal)</td></tr>
+            <tr><td>Permite descontar IVA al cliente</td><td>No</td><td>Sí</td></tr>
+            <tr><td>Apto para licitar / grandes clientes</td><td>No</td><td><span class="badge g">Sí ✓</span></td></tr>
+          </table>
+          <p class="muted" style="margin-top:8px">👉 Para ROHU lo correcto es <strong>habilitar facturación electrónica DIAN (gratis)</strong> desde el RUT y emitir factura. La cuenta de cobro queda solo para servicios muy esporádicos sin IVA.</p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--green)">
+          <h3>💡 Retención en la fuente — la gran ventaja del Simple</h3>
+          <p class="pro">✅ <strong>En Régimen Simple NO te practican retención de renta:</strong> cobras el <strong>100 %</strong> de tu factura y tú liquidas el impuesto vía anticipos bimestrales. Mejor flujo de caja.</p>
+          <p class="con">❌ <strong>En régimen ordinario</strong> el cliente te retiene <strong>11 % por servicios</strong> al pagarte: recibes menos y lo recuperas al declarar.</p>
+          <div class="alert info" style="margin-top:10px">
+            <strong>Ejemplo con tu ingreso simulado:</strong> sobre <span class="num" id="cobroFactura">—</span> facturados, en Simple recibes <strong class="num green" id="cobroSimple">—</strong> y en ordinario solo <strong class="num" id="cobroOrd">—</strong> (te retienen <span class="num" id="cobroRet">—</span>).
+          </div>
+        </div>
+      </div>
+
+      <!-- (f) Reporte tributario simulado -->
+      <h2 style="margin:26px 0 6px">📋 Así se vería tu reporte tributario (simulado)</h2>
+      <p class="muted">Con el ingreso del slider, así quedarían tus declaraciones del Régimen Simple. Cifras aproximadas para ilustración.</p>
+      <div class="grid cols-2">
+        <div class="card" style="background:#f7faff;border:1px dashed #019DF4">
+          <h3 style="font-family:monospace">🧾 Formulario 2593 — Anticipo bimestral</h3>
+          <table style="font-family:monospace;font-size:.92em">
+            <tr><td>Periodo</td><td class="num">1 bimestre (de 6)</td></tr>
+            <tr><td>Ingresos del bimestre</td><td class="num" id="f2593Ingreso">—</td></tr>
+            <tr><td>Tarifa SIMPLE Grupo 3</td><td class="num" id="f2593Tarifa">—</td></tr>
+            <tr style="background:#e8f1ff"><td><strong>Anticipo a pagar</strong></td><td class="num"><strong id="f2593Anticipo">—</strong></td></tr>
+          </table>
+          <p class="muted" style="margin-top:8px;font-size:.82em">Se presenta y paga cada 2 meses por el portal DIAN (MUISCA). Reemplaza la retención en la fuente.</p>
+        </div>
+        <div class="card" style="background:#f6fdf9;border:1px dashed var(--green)">
+          <h3 style="font-family:monospace">🧾 Formulario 260 — Declaración anual consolidada</h3>
+          <table style="font-family:monospace;font-size:.92em">
+            <tr><td>Ingresos brutos del año</td><td class="num" id="f260Ingreso">—</td></tr>
+            <tr><td>Impuesto SIMPLE del año</td><td class="num" id="f260Impuesto">—</td></tr>
+            <tr><td>(-) Anticipos bimestrales pagados</td><td class="num" id="f260Anticipos">—</td></tr>
+            <tr style="background:#e7f6ee"><td><strong>Saldo a pagar / a favor</strong></td><td class="num"><strong id="f260Saldo">—</strong></td></tr>
+          </table>
+          <p class="muted" style="margin-top:8px;font-size:.82em">Una sola declaración al año (no declaras renta aparte). Si eres responsable de IVA, presentas además la declaración anual de IVA.</p>
+        </div>
+      </div>
+
+      <div class="alert warn" style="margin-top:14px">
+        <strong>⚠️ Aviso:</strong> Simulador orientativo 2026 con datos reales: UVT $52.374 (Res. DIAN 000238/2025); tarifas Régimen Simple <strong>Grupo 3</strong> servicios profesionales/consultoría 5,9 %–14,5 % (DIAN); ICA Bogotá desarrollo de software 9,66×1000; retención honorarios 11 % (declarante). La elegibilidad al Régimen Simple y los porcentajes exactos según tu actividad CIIU deben validarse con un contador antes de inscribirte.
+      </div>
     </section>
 
   </main>
@@ -4872,7 +5018,7 @@ Email: hgomezgonzalez@gmail.com</textarea>
 <script>
 const state = {
   current: 0,
-  uvt: 49799,
+  uvt: 52374,
   salario: 13514970,
   bono: 159026147,
   meses: 7,
@@ -4907,7 +5053,7 @@ function updateParamsSummary(){
   if (el) el.textContent = summary;
 }
 const PARAMS_DEFAULTS = {
-  uvt: 49799, salario: 13514970, bono: 159026147, meses: 7,
+  uvt: 52374, salario: 13514970, bono: 159026147, meses: 7,
   gastoMes: 7530000, cuotaHip: 3497245, viajeUSA: 8500000, aporteEsposa: 2000000
 };
 function resetParams(){
@@ -4946,6 +5092,7 @@ function flashAll(){
 }
 function onParamChange(){
   recalc();
+  try { recalcEmpresa(); } catch(e){}
   updateParamsSummary();
   showParamsStatus('🔄 Recalculando...', 'amber');
   flashAll();
@@ -5213,7 +5360,7 @@ function topeAportes(){
 
 let chartComp, chartProj, chartDist;
 function recalc(){
-  state.uvt = +document.getElementById('uvt').value || 49799;
+  state.uvt = +document.getElementById('uvt').value || 52374;
   state.salario = +document.getElementById('salario').value || 13514970;
   state.bono = +document.getElementById('bono').value || 159026147;
   state.meses = +document.getElementById('meses').value || 7;
@@ -6083,11 +6230,167 @@ function recalc(){
   document.getElementById('distRiesgo').textContent = fmt(10e6+2e6);
 }
 
+// ===== SIMULADOR TRIBUTARIO DE EMPRESA (slide 19) =====
+// Tarifas Régimen Simple Grupo 3 (servicios profesionales/consultoría/científicos
+// con componente intelectual >50%): tarifa plana por tramo sobre ingresos brutos anuales.
+const RST_G3 = [
+  {hasta:6000,  t:0.059},
+  {hasta:15000, t:0.073},
+  {hasta:30000, t:0.120},
+  {hasta:Infinity, t:0.145},
+];
+const COSTO_SAS = 3500000; // contador + renovación matrícula (≈ $2–5M/año)
+function tarifaSimple(ingAnualCOP){
+  const ingUVT = ingAnualCOP / state.uvt;
+  for (const tr of RST_G3){ if (ingUVT <= tr.hasta) return tr.t; }
+  return 0.145;
+}
+function recalcEmpresa(){
+  const slider = document.getElementById('simEmpIngresoMes');
+  if (!slider) return; // guard
+  const ingMes  = +slider.value;
+  const ingAno  = ingMes * 12;
+  const costosPct = (+document.getElementById('simEmpCostos').value || 0) / 100;
+  const conIVA  = document.getElementById('simEmpIVA').checked;
+
+  // Comunes
+  const ss  = ingAno * 0.40 * 0.285;        // IBC 40% × (salud 12.5% + pensión 16%)
+  const iva = conIVA ? ingAno * 0.19 : 0;   // se cobra y traslada, no es costo propio
+
+  // --- 1) Persona Natural + Simple / S.A.S. + Simple (misma tarifa SIMPLE) ---
+  const tSimple = tarifaSimple(ingAno);
+  const impSimple = ingAno * tSimple;
+  const pnsBolsillo = ingAno - impSimple - ss;
+  const sasBolsillo = ingAno - impSimple - ss - COSTO_SAS;
+
+  // --- 2) Persona Natural ordinaria (renta por cédula + ICA + retención 11%) ---
+  const costos = ingAno * costosPct;
+  const exenta = Math.min((ingAno - costos) * 0.25, 790 * state.uvt); // 25% Art.206, tope 790 UVT
+  const baseOrd = Math.max(0, ingAno - costos - exenta);
+  const impRenta = impuestoRenta(baseOrd);
+  const ica = ingAno * 0.00966; // ICA Bogotá servicios ~9.66 por mil (el Simple ya lo incluye)
+  const impOrd = impRenta + ica; // carga tributaria total del ordinario
+  const retOrd = ingAno * 0.11; // retención en la fuente servicios (anticipo, se cruza con renta)
+  const ordBolsillo = ingAno - impOrd - ss;
+
+  // Tasas efectivas sobre ingreso bruto
+  const tasaPNS = impSimple / ingAno;
+  const tasaSAS = (impSimple + COSTO_SAS) / ingAno;
+  const tasaORD = impOrd / ingAno;
+
+  // --- Pintar tarjetas ---
+  document.getElementById('empUvtLbl').textContent = fmt(state.uvt);
+  document.getElementById('simEmpIngresoMesV').textContent = fmt(ingMes);
+  document.getElementById('simEmpIngresoAnoV').textContent = fmt(ingAno);
+  document.getElementById('simEmpCostosV').textContent = (costosPct*100).toFixed(0) + '%';
+
+  // PN + Simple
+  document.getElementById('pnsBolsillo').textContent = fmtShort(pnsBolsillo);
+  document.getElementById('pnsIngreso').textContent  = fmt(ingAno);
+  document.getElementById('pnsTarifa').textContent   = (tSimple*100).toFixed(1) + '%';
+  document.getElementById('pnsImpuesto').textContent = '-' + fmt(impSimple);
+  document.getElementById('pnsIVA').textContent      = conIVA ? fmt(iva) : '— (no gravado)';
+  document.getElementById('pnsSS').textContent       = '-' + fmt(ss);
+  document.getElementById('pnsTasaEf').textContent   = (tasaPNS*100).toFixed(1) + '%';
+
+  // S.A.S. + Simple
+  document.getElementById('sasBolsillo').textContent  = fmtShort(sasBolsillo);
+  document.getElementById('sasIngreso').textContent   = fmt(ingAno);
+  document.getElementById('sasTarifa').textContent    = (tSimple*100).toFixed(1) + '%';
+  document.getElementById('sasImpuesto').textContent  = '-' + fmt(impSimple);
+  document.getElementById('sasIVA').textContent       = conIVA ? fmt(iva) : '— (no gravado)';
+  document.getElementById('sasSS').textContent        = '-' + fmt(ss);
+  document.getElementById('sasEstructura').textContent= '-' + fmt(COSTO_SAS);
+  document.getElementById('sasTasaEf').textContent    = (tasaSAS*100).toFixed(1) + '%';
+
+  // PN ordinaria
+  document.getElementById('ordBolsillo').textContent  = fmtShort(ordBolsillo);
+  document.getElementById('ordIngreso').textContent   = fmt(ingAno);
+  document.getElementById('ordDeduc').textContent     = '-' + fmt(costos + exenta);
+  document.getElementById('ordImpuesto').textContent  = '-' + fmt(impRenta);
+  document.getElementById('ordICA').textContent       = '-' + fmt(ica);
+  document.getElementById('ordRetencion').textContent = '-' + fmt(retOrd) + ' (anticipo)';
+  document.getElementById('ordIVA').textContent       = conIVA ? fmt(iva) : '— (no gravado)';
+  document.getElementById('ordSS').textContent        = '-' + fmt(ss);
+  document.getElementById('ordTasaEf').textContent    = (tasaORD*100).toFixed(1) + '%';
+
+  // Carga total por figura (impuesto + estructura)
+  const cargaPNS = impSimple, cargaSAS = impSimple + COSTO_SAS, cargaORD = impOrd;
+
+  // Conclusión dinámica honesta: el Simple no siempre paga MENOS impuesto a ingresos
+  // bajos (el ordinario puede dar $0 de renta), pero gana en cashflow y simplicidad.
+  const concl = document.getElementById('empConclusion');
+  if (concl){
+    if (impSimple <= impRenta + ica){
+      concl.className = 'alert success';
+      concl.innerHTML = '<strong>💡 Con ' + fmt(ingMes) + '/mes:</strong> el <strong>Régimen Simple</strong> es además el que paga <strong>menos impuesto</strong> (' + fmt(impSimple) + ' vs ' + fmt(impRenta + ica) + ' en ordinario), y encima evita la retención del 11% (' + fmt(retOrd) + ' que te retendrían tus clientes). A este nivel de ingresos, <strong>PN + Simple gana en todo</strong>.';
+    } else {
+      concl.className = 'alert info';
+      concl.innerHTML = '<strong>💡 Con ' + fmt(ingMes) + '/mes (honesto):</strong> el régimen ordinario pagaría <strong>menos impuesto</strong> (' + fmt(impRenta + ica) + ' vs ' + fmt(impSimple) + ' del Simple) porque la renta de persona natural puede dar bajo o $0 a ingresos pequeños. Aun así conviene empezar como <strong>PN + Simple</strong>: cobras el 100% (sin retención del 11% = ' + fmt(retOrd) + ' que tus clientes retendrían), incluye ICA, presentas <strong>una sola declaración</strong> y te formaliza para facturar y construir experiencia. El Simple gana en impuesto puro cuando superas ≈ ' + fmt(12500000) + '/mes.';
+    }
+  }
+
+  // Barras de tasa efectiva (ancho relativo al mayor)
+  const maxTasa = Math.max(tasaPNS, tasaSAS, tasaORD, 0.001);
+  const setBar = (id, tasa) => {
+    const el = document.getElementById(id);
+    el.style.width = Math.max(6, (tasa / maxTasa) * 100).toFixed(0) + '%';
+    el.textContent = (tasa*100).toFixed(1) + '%';
+  };
+  setBar('barPNS', tasaPNS); setBar('barSAS', tasaSAS); setBar('barORD', tasaORD);
+
+  // Bloque de cobro
+  document.getElementById('cobroFactura').textContent = fmt(ingAno);
+  document.getElementById('cobroSimple').textContent  = fmt(ingAno);
+  document.getElementById('cobroOrd').textContent     = fmt(ingAno - retOrd);
+  document.getElementById('cobroRet').textContent     = fmt(retOrd);
+
+  // Reporte tributario simulado (Régimen Simple)
+  const ingBim = ingAno / 6;
+  const antBim = ingBim * tSimple;
+  document.getElementById('f2593Ingreso').textContent  = fmt(ingBim);
+  document.getElementById('f2593Tarifa').textContent   = (tSimple*100).toFixed(1) + '%';
+  document.getElementById('f2593Anticipo').textContent = fmt(antBim);
+  document.getElementById('f260Ingreso').textContent   = fmt(ingAno);
+  document.getElementById('f260Impuesto').textContent  = fmt(impSimple);
+  document.getElementById('f260Anticipos').textContent = '-' + fmt(antBim * 6);
+  document.getElementById('f260Saldo').textContent     = fmt(impSimple - antBim * 6);
+
+  // Gráfico comparativo de carga total
+  const v = document.getElementById('chartEmpComp');
+  if (v && window.Chart){
+    if (window._chartEmpComp && typeof window._chartEmpComp.destroy === 'function') window._chartEmpComp.destroy();
+    window._chartEmpComp = new Chart(v, {
+      type: 'bar',
+      data: {
+        labels: ['PN + Simple', 'S.A.S. + Simple', 'PN ordinaria'],
+        datasets: [{
+          label: 'Carga anual (impuesto + estructura)',
+          data: [cargaPNS, cargaSAS, cargaORD],
+          backgroundColor: ['#1aa260', '#f29900', '#d93025'],
+          borderRadius: 6,
+        }],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: c => ' ' + fmt(c.parsed.y) } },
+        },
+        scales: { y: { beginAtZero: true, ticks: { callback: v => fmtShort(v) } } },
+      },
+    });
+  }
+}
+
 ['uvt','salario','bono','meses','gastoMes','cuotaHip','viajeUSA','aporteEsposa'].forEach(id=>{
   document.getElementById(id).addEventListener('input', onParamChange);
 });
 // Inicializar summary
 setTimeout(() => updateParamsSummary(), 100);
+
+// Init simulador tributario de empresa (slide 19)
+try { recalcEmpresa(); } catch(e){}
 
 // Init: soportar hash de URL (#6 abre slide 6) para deep-linking y screenshots
 const initSlide = parseInt((window.location.hash || '#0').slice(1)) || 0;
