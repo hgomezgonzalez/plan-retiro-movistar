@@ -47,4 +47,4 @@ git push
 
 ## 📅 Última actualización
 
-2026-05-25
+2026-08-13 — FECEL: devolución de ahorros recibida ($10.257.086, ref. DEV-AHORROS-POR-RETIRO-F)

@@ -94,6 +94,7 @@
   .tl-step .dot{width:14px;height:14px;border-radius:50%;background:var(--mv-blue);margin:0 auto 6px;border:3px solid var(--bg)}
   .tl-step.alert .dot{background:var(--red)}
   .tl-step.warn .dot{background:var(--amber)}
+  .tl-step.ok .dot{background:var(--green)}
   .tl-step strong{display:block;color:var(--mv-dark)}
   .tl-step small{color:var(--gray)}
   .sim-row{display:grid;grid-template-columns:1.3fr 1fr 110px;gap:10px;align-items:center;margin:7px 0}
@@ -330,7 +331,7 @@
 
       <div class="grid cols-4" style="margin-top:14px">
         <div class="card kpi"><div class="label">Bonificación recibida</div><div class="value num" id="kpiBono">$159.026.147</div><div class="sub">No constitutiva de salario</div></div>
-        <div class="card kpi"><div class="label">Deuda bancaria total</div><div class="value num" id="kpiDeuda">$71M</div><div class="sub">Hip + Libranza + TC · FECEL neto +$10.3M aparte</div></div>
+        <div class="card kpi"><div class="label">Deuda bancaria total</div><div class="value num" id="kpiDeuda">$71M</div><div class="sub">Hip + Libranza + TC · FECEL +$10.26M ✅ recibido 13/ago</div></div>
         <div class="card kpi amber"><div class="label">Compromisos próximos 60 días</div><div class="value num" id="kpiCompr">—</div><div class="sub">TC + viaje USA + cuotas</div></div>
         <div class="card kpi green"><div class="label">Ahorro fiscal máximo</div><div class="value num" id="kpiAhorro">—</div><div class="sub">AFC + PV al tope</div></div>
       </div>
@@ -347,7 +348,7 @@
           <ol>
             <li><strong>Inmediato (junio):</strong> mantener al día la TC Infinite (cuota mensual, no urge total porque es plan 0% intereses) y cubrir lo pendiente del viaje USA ~$8M (auto Alamo $3.77M + mercado/gasolina en NJ).</li>
             <li><strong>Julio (al recibir liquidación):</strong> Movistar descuenta 3 cuotas libranza BBVA (~$2.28M). Decidir si saldar el resto (~$4.10M).</li>
-            <li><strong>Agosto (FECEL):</strong> tramitar retiro como socio; devuelven ahorro ($25.46M) menos deducciones ($15.13M: cartera $10.33M + póliza vehículo prepagada $4.32M + coopserpak/GMF) = saldo neto <strong>+$10.33M</strong> (liquidación oficial 08/07/2026).</li>
+            <li><strong>Agosto (FECEL) — ✅ HECHO:</strong> desafiliación ejecutada; devolvieron ahorro ($25.46M) menos deducciones ($15.13M: cartera $10.33M + póliza vehículo prepagada $4.32M + coopserpak/GMF). <strong>Abono recibido el 13/08/2026: +$10.257.086</strong> en BBVA ahorros *1001 (ref. DEV-AHORROS-POR-RETIRO-F). Queda pedir paz y salvo y aclarar los $70.500 de diferencia frente a la carta del 08/07.</li>
             <li><strong>NO prepagar el hipotecario:</strong> tasa 10.84% EA con subsidio. Mantener el crédito + escudo fiscal de intereses.</li>
             <li><strong>Antes 31/dic/2026:</strong> aportes AFC + Pensión Voluntaria para recuperar retención del bono.</li>
           </ol>
@@ -360,10 +361,15 @@
             <div class="tl-step"><div class="dot"></div><strong>22-29/jun</strong><small>Viaje USA</small></div>
             <div class="tl-step warn"><div class="dot"></div><strong>31/jul</strong><small>Fin contrato</small></div>
             <div class="tl-step"><div class="dot"></div><strong>05/ago</strong><small>Ventana 5d</small></div>
+            <div class="tl-step ok"><div class="dot"></div><strong>13/ago</strong><small>✅ FECEL +$10.26M</small></div>
             <div class="tl-step warn"><div class="dot"></div><strong>31/oct</strong><small>Fin EPS</small></div>
             <div class="tl-step"><div class="dot"></div><strong>31/dic</strong><small>Cierre fiscal</small></div>
           </div>
         </div>
+      </div>
+
+      <div class="alert success">
+        <strong>✅ 13/08/2026 — FECEL liquidado y cobrado:</strong> ingresaron <strong>$10.257.086</strong> a tu cuenta BBVA de ahorros *1001 desde BANCO GNB SUDAMERIS (ref. <code>DEV-AHORROS-POR-RETIRO-F</code>). Con esto queda <strong>saldado el crédito Turismo 0772026 del Suzuki</strong> y desaparece la cuota de <strong>$1.19M/mes</strong> (descuento FECEL total $1.53M/mes). El abono llegó <strong>$70.500 por debajo</strong> de los $10.327.586 liquidados en la carta del 08/07 → pedir desglose y paz y salvo.
       </div>
 
       <div class="alert warn">
@@ -434,7 +440,7 @@
             <li><strong>Planes móviles y fijos:</strong> 50% descuento por 6 meses.</li>
             <li><strong>EPS:</strong> cobertura urgencias 90 días (por > 5 años cotizados).</li>
             <li><strong>Tratamientos en curso:</strong> EPS y ARL deben continuarlos.</li>
-            <li><strong>Fondo Fecel:</strong> revisar saldos · cartera@fecel.org.</li>
+            <li><strong>Fondo Fecel:</strong> ✅ desafiliación cerrada — devolución neta de <strong>$10.257.086</strong> recibida el 13/08/2026. Falta paz y salvo · cartera@fecel.org.</li>
             <li><strong>Canal post-retiro:</strong> atencionexcolaborador@gesnext.com.</li>
           </ul>
         </div>
@@ -451,8 +457,8 @@
 
       <div class="grid cols-4">
         <div class="card kpi"><div class="label">Deuda bancaria</div><div class="value num">$71.2M</div><div class="sub">Hip + Libranza + TC</div></div>
-        <div class="card kpi green"><div class="label">FECEL posición neta</div><div class="value num">+$10.3M</div><div class="sub">Ahorro $25.46M − deducciones $15.13M</div></div>
-        <div class="card kpi amber"><div class="label">Cuotas mensuales totales</div><div class="value num">$5.79M</div><div class="sub">Hip $3.50M + Libranza $760K + FECEL $1.53M</div></div>
+        <div class="card kpi green"><div class="label">FECEL — ✅ liquidado y cobrado</div><div class="value num">+$10.26M</div><div class="sub">Abonado 13/08/2026 en BBVA *1001</div></div>
+        <div class="card kpi amber"><div class="label">Cuotas mensuales totales</div><div class="value num">$5.79M</div><div class="sub">Hip $3.50M + Libranza $760K + FECEL $1.53M (esta última ya extinguida)</div></div>
         <div class="card kpi"><div class="label">Tasa promedio ponderada</div><div class="value">~11.7%</div><div class="sub">Hipotecario domina por tamaño</div></div>
       </div>
 
@@ -492,12 +498,12 @@
             <td><span class="badge a">PROVISIONAR</span> $3.77M auto + ~$4.2M mercado/gasolina/peajes. Tiquetes y hotel <strong>ya pagos vía FECEL</strong>.</td>
           </tr>
           <tr style="background:#e7f6ee">
-            <td><strong>🤝 FECEL — posición neta a favor</strong><br><span class="muted">Ahorro $25.46M − deducciones $15.13M (oficial 08/07/2026)</span></td>
-            <td class="num green">+$10.327.586</td>
-            <td>$1.530.383</td>
+            <td><strong>🤝 FECEL — ✅ liquidado y cobrado</strong><br><span class="muted">Ahorro $25.46M − deducciones $15.13M (oficial 08/07/2026)</span></td>
+            <td class="num green">+$10.257.086</td>
+            <td class="num green">$0 <span class="muted">(era $1.530.383)</span></td>
             <td>—</td>
-            <td>Crédito turismo: 11 cuotas restantes</td>
-            <td><span class="badge g">LIQUIDAR AL RETIRARSE</span> FECEL cruza cartera + póliza + coopserpak contra el ahorro y reembolsa el saldo neto. Póliza de vehículo queda prepagada hasta ago/2027.</td>
+            <td>Crédito turismo: <strong>saldado</strong> en el cruce</td>
+            <td><span class="badge g">✓ CERRADO 13/08/2026</span> FECEL cruzó cartera + póliza + coopserpak contra el ahorro y giró el neto vía GNB Sudameris a BBVA *1001. Póliza de vehículo prepagada hasta ago/2027. Pendiente: paz y salvo + aclarar −$70.500 vs la carta.</td>
           </tr>
         </tbody>
       </table>
@@ -579,9 +585,20 @@
         </div>
       </div>
 
-      <div class="card" style="margin-top:14px;background:#fafcfe">
-        <h3>📋 Liquidación FECEL — OFICIAL (corte 08/07/2026)</h3>
-        <p class="muted" style="margin-top:-4px">Valores confirmados por FECEL (Jefferson Cetina · jefferson.cetina@fecel.org, 08/07/2026). Reemplazan la estimación previa del 22/05/2026.</p>
+      <div class="card" style="margin-top:14px;background:#fafcfe;border:3px solid var(--green)">
+        <h3>📋 Liquidación FECEL — ✅ PAGADA Y RECIBIDA (13/08/2026)</h3>
+        <p class="muted" style="margin-top:-4px">Liquidación oficial de FECEL (Jefferson Cetina · jefferson.cetina@fecel.org, 08/07/2026) <strong>ya ejecutada</strong>: el dinero ingresó a tu cuenta el 13/08/2026.</p>
+
+        <div style="margin-top:10px;padding:12px;background:#e7f6ee;border-radius:8px;border:2px solid var(--green)">
+          <h3 style="margin:0 0 8px">💰 Transferencia recibida — comprobante BBVA</h3>
+          <table>
+            <tr><td>Valor acreditado</td><td class="num green"><strong>$10.257.086</strong></td></tr>
+            <tr><td>Fecha y hora</td><td>13/08/2026 · 17:22</td></tr>
+            <tr><td>Banco originador</td><td>BANCO GNB SUDAMERIS (banco operativo de FECEL)</td></tr>
+            <tr><td>Cuenta destino</td><td>BBVA Cuenta de ahorro *1001</td></tr>
+            <tr><td>Referencia</td><td><code>DEV-AHORROS-POR-RETIRO-F</code></td></tr>
+          </table>
+        </div>
         <div class="grid cols-2">
           <div>
             <strong>A favor (débito · te devuelven)</strong>
@@ -603,9 +620,11 @@
           </div>
         </div>
         <div style="margin-top:10px;padding:10px;background:#e7f6ee;border-radius:6px;border:2px solid var(--green)">
-          <div style="display:flex;justify-content:space-between;align-items:center"><strong>= SALDO A FAVOR (te devuelven neto):</strong><span class="num green" style="font-weight:700;font-size:1.15em">$10.327.586</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><strong>= SALDO A FAVOR liquidado (carta 08/07/2026):</strong><span class="num" style="font-weight:700">$10.327.586</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px"><strong>= REALMENTE ABONADO (13/08/2026):</strong><span class="num green" style="font-weight:700;font-size:1.15em">$10.257.086</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;padding-top:6px;border-top:1px dashed var(--green)"><span class="muted">Diferencia por aclarar con FECEL</span><span class="num red">−$70.500 (−0,68%)</span></div>
         </div>
-        <p class="muted" style="margin-top:8px">Procedimiento al retiro: presentar carta de desafiliación a FECEL → cruzan automáticamente los saldos → entregan <strong>$10.327.586</strong> en cuenta bancaria. <strong>Nota:</strong> el neto bajó ~$1.44M frente al estimado ($11.76M) porque la liquidación oficial <strong>prepaga por adelantado la póliza de vehículo ($4.32M) y Coopserpak ($430K) hasta ago/2027</strong> — quedas cubierto ese año, no es una pérdida. <strong>Ojo:</strong> al perder vínculo laboral con Telefónica también se pierden los beneficios del fondo (productos a crédito, descuentos exequiales).</p>
+        <p class="muted" style="margin-top:8px"><strong>✅ Trámite cerrado:</strong> la desafiliación se ejecutó y FECEL cruzó automáticamente cartera + póliza + coopserpak contra el ahorro, girando el neto vía GNB Sudameris. <strong>Diferencia de $70.500:</strong> el abono real llegó $70.500 por debajo del saldo liquidado en la carta del 08/07/2026 — probablemente un ajuste de intereses/GMF del último mes o un descuento de cuota de agosto. No es material, pero <strong>vale pedir el desglose final y el paz y salvo</strong> (ver correo de seguimiento en el slide de comunicados). <strong>Nota:</strong> el neto bajó ~$1.44M frente al estimado inicial ($11.76M) porque la liquidación <strong>prepagó por adelantado la póliza de vehículo ($4.32M) y Coopserpak ($430K) hasta ago/2027</strong> — quedas cubierto ese año, no es una pérdida. <strong>Ojo:</strong> al perder el vínculo laboral con Telefónica también se pierden los beneficios del fondo (productos a crédito, descuentos exequiales).</p>
       </div>
 
       <div class="grid cols-2" style="margin-top:14px">
@@ -815,11 +834,11 @@
         <div class="card">
           <h3>🚗 Transporte · $1.37M/mes</h3>
           <table>
-            <tr><td><strong>Cuota Carro Suzuki</strong> (vía FECEL Turismo)</td><td class="num">$1.189.674</td><td><span class="badge a">FECEL crédito</span></td></tr>
+            <tr style="text-decoration:line-through;opacity:.5"><td><strong>Cuota Carro Suzuki</strong> (vía FECEL Turismo)</td><td class="num">$1.189.674</td><td><span class="badge r">ELIMINADA 13/08/2026</span></td></tr>
             <tr><td>Gasolina carro</td><td class="num">$150.000</td><td><span class="badge g">Bajo</span></td></tr>
             <tr><td>Gasolina moto</td><td class="num">$30.000</td><td><span class="badge g">Bajo</span></td></tr>
           </table>
-          <p class="muted"><strong>✅ Confirmado:</strong> el carro Suzuki se financia mediante el crédito FECEL "Turismo 0772026" (desembolsado 11/04/2025 por $25M, saldo actual $12.5M, cartera pendiente en liquidación $10.33M). <strong>Post-retiro:</strong> al desafiliarse de FECEL este saldo se cruza automáticamente con tu ahorro devuelto ($25.46M) → la deuda del carro queda saldada y recibes el saldo neto <strong>+$10.33M</strong> (oficial 08/07/2026), eliminando esta cuota mensual de tu presupuesto.</p>
+          <p class="pro"><strong>✅ EJECUTADO (13/08/2026):</strong> el carro Suzuki se financiaba con el crédito FECEL "Turismo 0772026" (desembolsado 11/04/2025 por $25M, cartera pendiente en liquidación $10.33M). Al desafiliarte, FECEL cruzó ese saldo contra tu ahorro devuelto ($25.46M): <strong>la deuda del carro quedó saldada</strong>, recibiste <strong>+$10.257.086</strong> netos en BBVA *1001 y <strong>la cuota de $1.189.674/mes desaparece del presupuesto</strong>. El transporte real baja de $1.37M a <strong>$180K/mes</strong> (solo gasolina).</p>
         </div>
 
         <div class="card">
@@ -884,7 +903,7 @@
               <tr><td>#7 Cuota Carro Suzuki (= FECEL Turismo)</td><td class="num green">-$1.189.674</td></tr>
               <tr style="background:#fff"><td><strong>Total eliminado al retirarte</strong></td><td class="num green"><strong>-$1.949.901</strong></td></tr>
             </table>
-            <p class="muted" style="margin-top:8px"><strong>Acción requerida:</strong> saldar libranza con bono + desafiliarse FECEL (recibes +$10.33M neto).</p>
+            <p class="muted" style="margin-top:8px"><strong>Estado:</strong> FECEL ✅ <strong>hecho</strong> — desafiliación ejecutada, cuota Suzuki extinguida y +$10.257.086 abonados el 13/08/2026. <strong>Pendiente:</strong> saldar la libranza BBVA con el bono (−$760.227/mes).</p>
           </div>
 
           <div class="card" style="background:#fff4e0">
@@ -908,7 +927,7 @@
             <tr><td>4</td><td>🏠 Admón Mirador 3 #8603 (congelada)</td><td class="num">$431.000</td><td><span class="badge g">Compensada con arriendo</span></td></tr>
             <tr><td>5</td><td>👨‍👩‍👧 Cuota hijos</td><td class="num">$1.950.905</td><td><span class="badge r">SAGRADO no tocar</span></td></tr>
             <tr><td>6</td><td>👨‍👩‍👧 Ahorro Cúcuta SAN</td><td class="num">$100.000</td><td><span class="badge a">Opcional pausar 6 meses</span></td></tr>
-            <tr style="text-decoration:line-through;opacity:.4"><td>7</td><td>🚗 Cuota Carro Suzuki (FECEL)</td><td class="num">$1.189.674</td><td><span class="badge r">ELIMINADO al desafiliar</span></td></tr>
+            <tr style="text-decoration:line-through;opacity:.4"><td>7</td><td>🚗 Cuota Carro Suzuki (FECEL)</td><td class="num">$1.189.674</td><td><span class="badge r">✓ ELIMINADO 13/08/2026</span></td></tr>
             <tr><td>8</td><td>🚗 Gasolina carro</td><td class="num">$150.000</td><td><span class="badge g">Bajará (sin oficina) → $100K</span></td></tr>
             <tr><td>9</td><td>🚗 Gasolina moto</td><td class="num">$30.000</td><td><span class="badge g">Bajo</span></td></tr>
             <tr><td>10</td><td>🍽️ Almuerzo afuera</td><td class="num">$500.000</td><td><span class="badge a">Reducir a $100K (cocinar)</span></td></tr>
@@ -2675,14 +2694,14 @@
             <tr><td><span class="badge a">JUN</span> TC Infinite — reserva 3 cuotas (plan 0%)</td><td class="num">$1.5M</td><td class="muted">Provisión 3-4 meses cuota</td></tr>
             <tr><td><span class="badge a">JUN</span> Viaje USA pendiente (auto + viáticos)</td><td class="num">$8.0M</td><td class="muted">22–29 jun · tiquetes/hotel ya en FECEL</td></tr>
             <tr><td><span class="badge a">AGO</span> Saldar libranza BBVA (resto)</td><td class="num">$5.0M</td><td class="muted">Tras retiro</td></tr>
-            <tr><td><span class="badge b">2026</span> Colchón liquidez 6 meses</td><td class="num">$80.0M</td><td class="muted">CDT + cuenta remunerada (cubre $13M/mes) — refuerzo con +$10.33M de FECEL</td></tr>
+            <tr><td><span class="badge b">2026</span> Colchón liquidez 6 meses</td><td class="num">$80.0M</td><td class="muted">CDT + cuenta remunerada (cubre $13M/mes) — reforzado con los +$10.26M de FECEL ya recibidos</td></tr>
             <tr><td><span class="badge g">FISC</span> Pensión Voluntaria</td><td class="num">$32.0M</td><td class="muted">Maximizar exención (+$2M tras TC)</td></tr>
             <tr><td><span class="badge g">FISC</span> Cuenta AFC</td><td class="num">$15.0M</td><td class="muted">Mejora vivienda actual</td></tr>
             <tr><td><span class="badge a">CAP</span> Capital semilla ROHU</td><td class="num">$15.5M</td><td class="muted">Runway 18 meses + marketing</td></tr>
             <tr><td><span class="badge b">DIV</span> ETF / dolarización</td><td class="num">$2.0M</td><td class="muted">Hedge devaluación</td></tr>
             <tr><td><strong>Total asignado bono</strong></td><td class="num"><strong>$159.0M</strong></td><td></td></tr>
-            <tr style="background:#e7f6ee"><td><strong>+ FECEL liquidación neta</strong></td><td class="num green"><strong>+$10.33M</strong></td><td class="muted">Oficial 08/07/2026 · al desafiliarse (agosto)</td></tr>
-            <tr style="background:#e7f6ee"><td><strong>Capital total disponible</strong></td><td class="num"><strong>$169.33M</strong></td><td></td></tr>
+            <tr style="background:#e7f6ee"><td><strong>+ FECEL liquidación neta ✅ recibida</strong></td><td class="num green"><strong>+$10.26M</strong></td><td class="muted">$10.257.086 abonados el 13/08/2026 · BBVA *1001</td></tr>
+            <tr style="background:#e7f6ee"><td><strong>Capital total disponible</strong></td><td class="num"><strong>$169.28M</strong></td><td class="muted">$159.03M bono + $10.26M FECEL</td></tr>
           </table>
         </div>
       </div>
@@ -2816,7 +2835,7 @@
       <p class="muted">Mix de instrumentos <strong>100% online, sin gestión activa</strong>, abribles en menos de 30 minutos. Retornos escalonados: ves los primeros intereses al día 30, capital + intereses en CDT al vencimiento, dividendos trimestrales en ETFs.</p>
 
       <div class="grid cols-4">
-        <div class="card kpi"><div class="label">Capital líquido a invertir</div><div class="value num">$90M</div><div class="sub">$80M libres del bono + $10.33M FECEL</div></div>
+        <div class="card kpi"><div class="label">Capital líquido a invertir</div><div class="value num">$90M</div><div class="sub">$80M libres del bono + $10.26M FECEL ✅ en caja</div></div>
         <div class="card kpi green"><div class="label">Retorno año 1 con mix sugerido</div><div class="value num" id="invRetAnual">$8.5M</div><div class="sub">≈9.2% EA blended</div></div>
         <div class="card kpi"><div class="label">Ingreso pasivo promedio</div><div class="value num" id="invIngMes">$710K</div><div class="sub">Mensual año 1</div></div>
         <div class="card kpi amber"><div class="label">Inflación 2026 esperada</div><div class="value">~6%</div><div class="sub">Este mix la supera ampliamente</div></div>
@@ -3704,16 +3723,17 @@ CC 79.969.144</textarea>
           <button class="btn ghost" onclick="copyEmail(this)">📋 Copiar texto</button>
         </div>
 
-        <div class="card" style="border-left:4px solid var(--amber)">
-          <h3>3️⃣ FECEL — iniciar trámite desafiliación</h3>
-          <p class="muted">Devolución ahorro ($25.46M) menos deducciones ($15.13M) = recibir +$10.33M neto (oficial 08/07/2026)</p>
+        <div class="card" style="border-left:4px solid var(--green)">
+          <h3>3️⃣ FECEL — ✅ desafiliación ejecutada · pedir paz y salvo y aclarar diferencia</h3>
+          <p class="pro" style="margin-top:-4px"><strong>Estado:</strong> pago recibido el 13/08/2026 por <strong>$10.257.086</strong> (BANCO GNB SUDAMERIS → BBVA ahorros *1001, ref. <code>DEV-AHORROS-POR-RETIRO-F</code>). La carta del 08/07/2026 liquidaba $10.327.586 → faltan <strong>$70.500</strong>. Este correo cierra el trámite: paz y salvo, desglose final y constancia de las prepagadas.</p>
           <table>
             <tr><td><strong>Destinatario sugerido</strong></td><td><code>cartera@fecel.org</code></td></tr>
-            <tr><td><strong>Asunto</strong></td><td>Solicitud desafiliación FECEL - CC 79969144 - retiro Telefónica 31/jul/2026</td></tr>
+            <tr><td><strong>Copia</strong></td><td><code>jefferson.cetina@fecel.org</code></td></tr>
+            <tr><td><strong>Asunto</strong></td><td>Paz y salvo y desglose final desafiliación FECEL - CC 79969144 - pago recibido 13/08/2026</td></tr>
           </table>
           <textarea class="email-body" rows="7" style="width:100%;font-family:monospace;font-size:.85em;padding:8px;border:1px solid var(--border);border-radius:6px;margin:8px 0">Cordial saludo,
 
-Solicito formalmente iniciar el proceso de desafiliación al Fondo de Empleados Telefónica - FECEL.
+Confirmo que el 13/08/2026 recibí en mi cuenta de ahorros BBVA terminada en 1001 la transferencia por $10.257.086, originada desde BANCO GNB SUDAMERIS con referencia DEV-AHORROS-POR-RETIRO-F, correspondiente a la devolución de aportes por mi desafiliación del Fondo de Empleados Telefónica - FECEL.
 
 Datos del socio:
 - Nombre: HUGO FERNEY GOMEZ GONZALEZ
@@ -3722,25 +3742,26 @@ Datos del socio:
 - Empresa: Colombia Telecomunicaciones S.A. ESP BIC
 - Fecha de retiro de la empresa: 31/07/2026 (mutuo acuerdo)
 
-Según la liquidación oficial que me remitieron el 08/07/2026:
+Sobre la liquidación oficial que me remitieron el 08/07/2026:
 - Devolución ahorro (a favor): $25.462.326
 - Total deducciones (cartera $10.334.392 + póliza vehículo $4.322.676 + coopserpak $429.800 + GMF $45.489 + EMI ene/2018 $2.383): $15.134.740
-- Saldo a favor a devolver: $10.327.586
+- Saldo a favor liquidado: $10.327.586
+- Valor efectivamente abonado el 13/08/2026: $10.257.086
+- Diferencia: $70.500
 
-Solicito:
-1. Confirmar el proceso de cruce automático entre aportes y cartera.
-2. Indicarme la documentación requerida (carta firmada, formato físico, etc.).
-3. Tiempo estimado de devolución del saldo neto a mi cuenta bancaria.
-4. Fecha límite para presentar la solicitud para asegurar pago en agosto 2026.
-
-Cuenta para devolución: BBVA cuenta nómina actual (la actualizo si requieren).
+Agradezco:
+1. Enviarme el desglose final del pago y la explicación de la diferencia de $70.500 frente al saldo liquidado en la carta del 08/07/2026.
+2. Expedir PAZ Y SALVO del crédito Turismo 0772026 (constancia de cancelación total por cruce con aportes).
+3. Certificado de retiro/desafiliación del fondo con fecha efectiva.
+4. Constancia de la póliza de vehículo prepagada y de Coopserpak, con vigencia hasta agosto/2027, indicando a quién debo dirigirme para hacer efectiva la cobertura ahora que ya no soy socio activo.
+5. Certificado de aportes y rendimientos del año 2026 para efectos de mi declaración de renta.
 
 Quedo atento.
 
 Hugo Ferney Gómez González
 CC 79.969.144
 Cel: [TU CELULAR]</textarea>
-          <button class="btn" onclick="sendEmail(this)" data-to="cartera@fecel.org" data-subject="Solicitud desafiliación FECEL - CC 79969144 - retiro Telefónica 31/jul/2026">📨 Enviar</button>
+          <button class="btn" onclick="sendEmail(this)" data-to="cartera@fecel.org" data-subject="Paz y salvo y desglose final desafiliación FECEL - CC 79969144 - pago recibido 13/08/2026">📨 Enviar</button>
           <button class="btn ghost" onclick="copyEmail(this)">📋 Copiar texto</button>
         </div>
 
@@ -4044,7 +4065,7 @@ Email: hgomezgonzalez@gmail.com</textarea>
             <h3>✅ Eficiencias automáticas (sí o sí pasan al retirarse)</h3>
             <ul style="list-style:none;padding:0">
               <li style="padding:6px 0"><label><input type="checkbox" id="ef_libranza" checked onchange="recalcDecisiones()" style="transform:scale(1.3);margin-right:8px;accent-color:var(--green)"> 💼 Saldar libranza BBVA → eliminar cuota <strong>$760K/mes</strong></label></li>
-              <li style="padding:6px 0"><label><input type="checkbox" id="ef_fecel" checked onchange="recalcDecisiones()" style="transform:scale(1.3);margin-right:8px;accent-color:var(--green)"> 🤝 Desafiliar FECEL (saldar Suzuki) → eliminar cuota <strong>$1.19M/mes</strong></label></li>
+              <li style="padding:6px 0"><label><input type="checkbox" id="ef_fecel" checked onchange="recalcDecisiones()" style="transform:scale(1.3);margin-right:8px;accent-color:var(--green)"> 🤝 Desafiliar FECEL (saldar Suzuki) → eliminar cuota <strong>$1.19M/mes</strong> <span class="badge g">✓ HECHO 13/08/2026</span></label></li>
             </ul>
 
             <h3 style="margin-top:14px">💑 Ingresos familiares confirmados</h3>
@@ -4188,8 +4209,9 @@ Email: hgomezgonzalez@gmail.com</textarea>
           <thead><tr><th>Fecha</th><th>Acción</th><th>Ahorro/mes acum</th><th>Dueño</th></tr></thead>
           <tbody>
             <tr><td>Sem 1</td><td><strong>Saldar libranza BBVA</strong> restante ($4.10M)</td><td class="num green">+$760K (libranza completa)</td><td>Tú → BBVA línea libranza</td></tr>
-            <tr><td>Sem 2</td><td><strong>Desafiliarse FECEL</strong> (cartera@fecel.org)</td><td class="num green">+$1.19M (cuota Suzuki via FECEL)</td><td>Tú → FECEL</td></tr>
-            <tr><td>Sem 2</td><td>Recibir +$10.33M neto FECEL</td><td>—</td><td>FECEL</td></tr>
+            <tr style="background:#e7f6ee"><td>Sem 2</td><td><strong>✅ Desafiliarse FECEL</strong> (cartera@fecel.org) — HECHO</td><td class="num green">+$1.19M (cuota Suzuki via FECEL)</td><td>Tú → FECEL</td></tr>
+            <tr style="background:#e7f6ee"><td>13/ago</td><td><strong>✅ Recibido +$10.257.086 neto FECEL</strong> (BBVA *1001, ref. DEV-AHORROS-POR-RETIRO-F)</td><td>—</td><td>FECEL / GNB Sudameris</td></tr>
+            <tr><td>Sem 3</td><td>Pedir paz y salvo FECEL + aclarar diferencia de $70.500 vs carta 08/07</td><td class="num amber">$70.500 por confirmar</td><td>Tú → cartera@fecel.org</td></tr>
             <tr><td>Sem 3</td><td><strong>Llamar BBVA Seguros</strong> validar Cuota Segura (056322194735 y 056652195005)</td><td class="num amber">Pendiente respuesta</td><td>Tú → BBVA Seguros</td></tr>
             <tr style="background:#e7f6ee"><td colspan="3"><strong>Subtotal Capa 1 acumulado en agosto</strong></td><td class="num green"><strong>$1.95M/mes</strong></td></tr>
           </tbody>
@@ -4309,7 +4331,8 @@ Email: hgomezgonzalez@gmail.com</textarea>
           <tr><td>Semana 1 ago</td><td>Recibir liquidación con descuento automático libranza (3 cuotas ≈ $2.28M)</td><td class="num">+$30M aprox</td><td>atencionnomina@mailf.movistar.co</td></tr>
           <tr><td>Semana 1 ago</td><td>Reunión con asesor Pensión Voluntaria (Skandia / Protección)</td><td>—</td><td>Tel asesores en doc Movistar</td></tr>
           <tr><td>Semana 2 ago</td><td>Saldar libranza BBVA restante</td><td class="num">~$4.8M</td><td>BBVA línea libranzas</td></tr>
-          <tr style="background:#e7f6ee"><td>Semana 2-3 ago</td><td><strong>Desafiliación FECEL</strong> — recibir saldo neto tras cruzar cartera + póliza + coopserpak</td><td class="num green">+$10.33M</td><td>cartera@fecel.org · 601 5141424</td></tr>
+          <tr style="background:#e7f6ee"><td><strong>13/ago</strong></td><td><strong>✅ Desafiliación FECEL EJECUTADA</strong> — saldo neto abonado tras cruzar cartera + póliza + coopserpak</td><td class="num green">+$10.257.086</td><td>BBVA ahorros *1001 · ref. DEV-AHORROS-POR-RETIRO-F</td></tr>
+          <tr><td>Semana 3 ago</td><td>Solicitar a FECEL paz y salvo Turismo 0772026 + desglose de la diferencia de $70.500</td><td class="num amber">$70.500</td><td>cartera@fecel.org · 601 5141424</td></tr>
           <tr><td>Semana 2 ago</td><td>Abrir AFC + PV, primer aporte</td><td class="num">$20M</td><td>Banco + Asesor PV</td></tr>
           <tr><td>Semana 3 ago</td><td>Constituir CDT escalonado 3/6/12 meses</td><td class="num">$50M</td><td>Bancolombia / Lulo / BTG</td></tr>
           <tr><td>Semana 4 ago</td><td>Contratar EPS independiente / prepagada (antes 01/nov)</td><td class="num">~$1.5M/mes</td><td>Sura / Sanitas / Compensar</td></tr>
@@ -4430,8 +4453,14 @@ Email: hgomezgonzalez@gmail.com</textarea>
             <li><input type="checkbox" /> <span>Verificar liquidación recibida (descuento 3 cuotas libranza)</span></li>
             <li><input type="checkbox" /> <span>Confirmar continuidad o cancelación planes móvil/fijo</span></li>
             <li><input type="checkbox" /> <span>Solicitar paz y salvo BBVA libranza tras saldar resto</span></li>
-            <li><input type="checkbox" /> <span>Iniciar trámite desafiliación FECEL (cartera@fecel.org)</span></li>
-            <li><input type="checkbox" /> <span>Confirmar liquidación FECEL: ahorro $25.46M − deducciones $15.13M = +$10.33M (oficial 08/07/2026 ✓)</span></li>
+            <li><input type="checkbox" checked /> <span>Iniciar trámite desafiliación FECEL (cartera@fecel.org) — <strong>✅ hecho</strong></span></li>
+            <li><input type="checkbox" checked /> <span>Confirmar liquidación FECEL: ahorro $25.46M − deducciones $15.13M = +$10.33M liquidados (carta oficial 08/07/2026 ✓)</span></li>
+            <li><input type="checkbox" checked /> <span><strong>✅ Verificar abono FECEL recibido: $10.257.086 el 13/08/2026</strong> en BBVA ahorros *1001 (ref. DEV-AHORROS-POR-RETIRO-F)</span></li>
+            <li><input type="checkbox" /> <span>Reclamar a FECEL el <strong>paz y salvo</strong> del crédito Turismo 0772026 + certificado de retiro del fondo</span></li>
+            <li><input type="checkbox" /> <span>Pedir a FECEL el desglose de la <strong>diferencia de $70.500</strong> ($10.327.586 liquidados vs $10.257.086 abonados)</span></li>
+            <li><input type="checkbox" /> <span>Pedir constancia de póliza vehículo + Coopserpak <strong>prepagadas hasta ago/2027</strong> y canal de atención sin ser socio activo</span></li>
+            <li><input type="checkbox" /> <span>Verificar en el extracto que <strong>ya no se descuenta la cuota FECEL de $1.530.383</strong></span></li>
+            <li><input type="checkbox" /> <span>Guardar comprobante BBVA del abono (no es ingreso gravable: es devolución de aportes propios)</span></li>
           </ul>
         </div>
 
